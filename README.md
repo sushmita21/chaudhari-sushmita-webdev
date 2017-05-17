@@ -1,7 +1,17 @@
-WebDevSpring2017
+Project overview
 
-Northeastern University | College of Computer and Information Science
+This is a course repo for CS5610 Web development, session Summer1 2017. The repo will include all the submission information as well as part of my codebase.
 
-CS5610 - Web Development
+About author: Sushmita Chaudhari
 
-This repository contains the assignments and projects for the web development course
+I am a computer science master candidate in Northeastern University. You can find me here.
+
+Course info
+
+Web development project: https://chaudhari-sushmita-webdev.herokuapp.com/
+
+Link to my Project : TBD
+
+Link to my Assignment: TBD
+
+
