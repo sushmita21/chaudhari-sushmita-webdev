@@ -4,7 +4,7 @@ This is a course repo for CS5610 Web development, session Summer1 2017. The repo
 
 About author: Sushmita Chaudhari
 
-I am a computer science master candidate in Northeastern University. You can find me here.
+I am a computer science master candidate in Northeastern University. 
 
 Course info
 
