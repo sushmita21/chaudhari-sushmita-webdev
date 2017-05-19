@@ -1,8 +1,17 @@
-# web-dev-template
+Project overview
 
-1. git clone https://github.com/jannunzi/web-dev-template.git
-1. cd web-dev-template
-1. npm install
-1. mongod
-1. node server.js
-1. browse to localhost:3000
+This is a course repo for CS5610 Web development, session Summer1 2017. The repo will include all the submission information as well as part of my codebase.
+
+About author: Sushmita Chaudhari
+
+I am a computer science master candidate in Northeastern University. 
+
+Course info
+
+Web development project: https://chaudhari-sushmita-webdev.herokuapp.com/
+
+Link to my Project : TBD
+
+Link to my Assignment: TBD
+
+
