@@ -1,18 +1,25 @@
+
+
 input.form-control {
     margin-bottom: 5px;
 }
 
 body {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 63px;
+    padding-bottom: 63px;
+
 }
 
+.temp  {
+
+    color : blue;
+}
 .list-group-item {
     border: 0px;
 }
 
 .navbar-default {
-    background-color:dodgerblue;
+    background-color:  dodgerblue;
 }
 
 .navbar-default .navbar-brand {
@@ -21,11 +28,16 @@ body {
 
 }
 
-.navbar-default .navbar-link{
+
+.navbar-default .navbar-link {
     color: white;
     font-weight: bold;
+
 }
 
+.eye-margin {
+    margin-left: 15px;
+}
 .left-control {
     position: absolute;
     top: 0px;
@@ -49,23 +61,7 @@ body {
     overflow-y: auto;
 }
 
-.wd-widget {
-    margin-bottom: 10px;
+.vertical-line {
+    border-left: thin solid silver;
 }
 
-.wd-widget > img {
-    width: 100%;
-}
-
-.wd-widget > .wd-widget-toolbar {
-    position: absolute;
-    right: 15px;
-    background: white;
-    opacity: 0.9;
-    padding: 5px;
-    border-bottom-left-radius: 10px;
-}
-
-.eye-margin{
-    margin-left: 15px;
-}

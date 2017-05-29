@@ -1,0 +1,81 @@
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"
+               class = "navbar-link">
+        <span class="glyphicon glyphicon-chevron-left">
+        </span>
+            </a>
+        </p>
+
+        <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">
+            Choose Widget
+        </a>
+    </div>
+</nav>
+
+
+<div class = "container-fluid">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a ng-click="model.createHeaderWidget(1)"> FirstHeader </a>
+        </li>
+
+        <li class="list-group-item">
+            <a ng-click="model.createHeaderWidget(2)"> SecondHeader </a>
+        </li>
+
+
+        <li class="list-group-item">
+            <a ng-click="model.createImageWidget()"> Image </a>
+        </li>
+
+        <li class="list-group-item">
+            <a ng-click="model.createYoutubeWidget()"> YouTube </a>
+        </li>
+
+        <li class="list-group-item">
+            <a ng-click="model.createHTMLWidget()"> HTML </a>
+        </li>
+
+        <li class="list-group-item">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"> Label </a>
+        </li>
+
+
+        <li class="list-group-item">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"> Text Input </a>
+        </li>
+
+        <li class="list-group-item">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"> Link </a>
+        </li>
+
+        <li class="list-group-item">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"> Button </a>
+        </li>
+
+
+        <li class="list-group-item">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"> Data Table </a>
+        </li>
+
+        <li class="list-group-item">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"> Repeater </a>
+        </li>
+
+
+    </ul>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}" class="navbar-link" >
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </p>
+    </div>
+</nav>
