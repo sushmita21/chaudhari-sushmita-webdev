@@ -6,14 +6,16 @@
 
 
     function WebsiteListController($routeParams, WebsiteService) {
-
-
         var model = this;
         var userId = $routeParams['uid'];
 
         function init() {
-            var websites = WebsiteService.findWebsitesByUser(userId);
-            model.websites = websites;
+            var promise = WebsiteService.findWebsitesByUser(userId);
+            promise.then(function()
+            {
+                model.websites = websites;
+            });
+
         }
         init();
         model.userId = userId;

@@ -20,7 +20,7 @@
             return $http.get(url)
                 .then(function (response) {
                     return response.data;
-                })
+                });
             /*for(var u in users) {
              var user = users[u];
              if(user._id === uid) {
@@ -35,7 +35,7 @@
             return $http.get(url)
                 .then(function (response) {
                     return response.data;
-                })
+                });
             /* for(var u in users) {
              var user = users[u];
              if( user.username === username &&
@@ -49,7 +49,7 @@
 
         function updateUser(userId, newUser) {
             var url = "/api/user/" + userId;
-            return $http.put(url)
+            return $http.put(url, newUser)
                 .then(function (response) {
                     return response.data;
                 });

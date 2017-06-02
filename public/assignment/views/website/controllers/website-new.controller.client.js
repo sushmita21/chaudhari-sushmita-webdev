@@ -7,16 +7,25 @@
         var model = this;
         var userId = $routeParams['uid'];
         function init() {
-            var websites = WebsiteService.findWebsitesByUser(userId);
-            model.websites = websites;
+            var promise = WebsiteService.findWebsitesByUser(userId);
+            promise.then(function()
+            {
+                model.websites = websites;
+            });
+
         }
         init();
         model.userId = userId;
         model.createWebsite = createWebsite;
 
         function createWebsite(website) {
-            var website = WebsiteService.createWebsite(model.userId, website);
-            $location.url("/user/" + model.userId + "/website");
+            var promise = WebsiteService.createWebsite(model.userId, website);
+            promise.then(function()
+            {
+                $location.url("/user/" + model.userId + "/website");
+            });
+
+
         }
     }
 

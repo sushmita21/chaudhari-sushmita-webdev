@@ -18,7 +18,7 @@ app.delete('/api/user/:userId', deleteUser);
 
 function updateUser(req, res)
 {
-    var user = req.body;
+    var newUser = req.body;
     for (var u in users)
     {
         var user = users[u];

@@ -85,11 +85,10 @@ function deleteWebsite(req, res)
 
         if(websites[w]._id === websiteId){
             websites.splice(w ,1);
-            res.json(website[w]);
+            res.sendStatus(200);
             return ;
         }
 
     }
-    return "WebsiteNotFound";
-
+    res.sendStatus(404);
 }
