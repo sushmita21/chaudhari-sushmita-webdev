@@ -10,28 +10,38 @@
         model.deleteUser = deleteUser;
 
         function init() {
-            var user = UserService.findUserById(userId);
-            model.user = user;
+            var promise = UserService.findUserById(userId);
+            promise.then(function (user) {
+                model.user = user;
+            })
         }
         init();
 
         function updateUser(newUser) {
-            var user = UserService.updateUser(userId, newUser);
-            if(user != null) {
-                model.message = "User Successfully Updated!"
-            } else {
-                model.error = "Unable to update user";
-            }
+            var promise = UserService.updateUser(userId, newUser);
+            promise.then(function (user)
+            {
+                if(user != null) {
+                    model.message = "User Successfully Updated!"
+                } else {
+                    model.error = "Unable to update user";
+                }
+            });
+
         }
         function deleteUser(delUser) {
-            var found = UserService.deleteUserById(delUser._id);
-            if (found == "UserNotFound"){
-                model.error = "User not found";
-            }
-            else{
-                $location.url("/login");
-                return;
-            }
+            var promise = UserService.deleteUserById(delUser._id);
+            promise.then(function (found)
+            {
+                if (found == "UserNotFound"){
+                    model.error = "User not found";
+                }
+                else{
+                    $location.url("/login");
+                    return;
+                }
+            });
+
         }
     }
 
