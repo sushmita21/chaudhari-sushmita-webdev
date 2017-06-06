@@ -11,14 +11,16 @@
         var model = this;
         var userId = $routeParams['uid'];
         var websiteId = $routeParams['wid'];
+        model.userId = userId;
+        model.websiteId = websiteId;
         function init() {
-            var pages = PageService.findPageByWebsiteId(websiteId);
-            model.pages = pages;
+            var promise = PageService.findPageByWebsiteId(websiteId);
+            promise.then(function (pages) {
+                model.pages = pages;
+            })
         }
         init();
 
-        model.userId = userId;
-        model.websiteId = websiteId;
 
     }
 

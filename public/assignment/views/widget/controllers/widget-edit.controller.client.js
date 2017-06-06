@@ -11,19 +11,32 @@
         model.widgetId = $routeParams.wgid;
 
         function init() {
-            model.widget = WidgetService.findWidgetById(model.widgetId);
+            var promise = WidgetService.findWidgetById(model.widgetId);
+            promise.then(function(result)
+            {
+                model.widget =result;
+            });
+
         }init();
 
         model.updateWidget = updateWidget;
         model.deleteWidget = deleteWidget;
 
         function updateWidget(updatedWidget) {
-            WidgetService.updateWidget(model.widgetId, updatedWidget);
-            $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget");
+            var promise = WidgetService.updateWidget(model.widgetId, updatedWidget);
+            promise.then(function(result)
+            {
+                $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget");
+            });
+
         }
         function deleteWidget(wgid) {
             var deleteResult = WidgetService.deleteWidget(wgid);
-            $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget");
+            deleteResult.then(function(result)
+            {
+                $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget");
+            });
+
 
         }
     }

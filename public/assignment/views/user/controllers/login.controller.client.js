@@ -21,12 +21,14 @@
             var promise = UserService.findUserByCredentials(username, password);
             promise.then(function (loginUser) {
 
-                if(loginUser !== null) {
+                console.log("inside success");
                     $location.url('/user/' + loginUser._id);
-                } else {
-                    model.error = 'user not found';
-                }
 
+
+            }, function (error)
+            {
+                console.log("inside eror");
+                model.error = 'user not found';
             });
 
 

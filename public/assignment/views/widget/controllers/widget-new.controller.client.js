@@ -23,36 +23,55 @@
                 size: headerSize.toString(),
                 text: "Heading "+headerSize
             }
+            var promise = WidgetService.createWidget(model.pageId, widget);
+            promise.then(function(result)
+            {
+                var newWidget = result;
+                $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget/" + newWidget._id);
+            });
 
-            var newWidget = WidgetService.createWidget(model.pageId, widget);
-            $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget/" + newWidget._id);
         }
         function createHTMLWidget() {
             var widget =
                 {type: "HTML",
                 text: "Sample <i>HTML</i> text"};
-            var newWidget = WidgetService.createWidget(model.pageId, widget);
-            $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget/" + newWidget._id);
 
-        }
+            var promise= WidgetService.createWidget(model.pageId, widget);
+            promise.then(function(result)
+            {
+                var newWidget = result;
+                $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget/" + newWidget._id);
+            });
+          }
 
         function createImageWidget() {
             var widget =
                 {type: "IMAGE",
                 width: "100%",
                 url: "https://www.srf.ch/static/radio/modules/dynimages/624/srf-2/hoerspiel/2013/171120.14129704.jpg"}
-            var newWidget = WidgetService.createWidget(model.pageId, widget);
-            $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget/" + newWidget._id);
+
+            var promise = WidgetService.createWidget(model.pageId, widget);
+            promise.then(function(result)
+            {
+                var newWidget = result;
+                $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget/" + newWidget._id);
+            });
+
         }
 
         function createYoutubeWidget() {
             var widget =
-                {type: "YOUTUBE",
-                width: "100%",
-                url: "https://www.youtube.com/embed/g4LyzhkDNBM"}
-            var newWidget = WidgetService.createWidget(model.pageId, widget);
-            $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget/" + newWidget._id);
+                {
+                    type: "YOUTUBE",
+                    width: "100%",
+                    url: "https://www.youtube.com/embed/g4LyzhkDNBM"
+                }
 
+            var promise = WidgetService.createWidget(model.pageId, widget);
+            promies.then(function (result) {
+                var newWidget = result;
+                $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget/" + newWidget._id);
+            });
         }
     }
 })();

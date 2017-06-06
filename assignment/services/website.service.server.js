@@ -25,9 +25,9 @@ function findWebsitesByUser(req, res)
         var websiteList = [];
         for(var w in websites)
         {
-                if(website[w].developerId === userId)
+                if(websites[w].developerId === userId)
                 {
-                        websiteList.push(w);
+                        websiteList.push(websites[w]);
                 }
         }
         res.json(websiteList);
@@ -38,13 +38,15 @@ function findWebsiteById(req, res)
         var websiteId = req.params.websiteId;
         for(var w in websites)
         {
-                if(website[w]._id === websiteId)
+                if(websites[w]._id === websiteId)
                 {
-                        return website[w];
+                    res.send(websites[w]);
+                    return;
                 }
         }
-        res.json(website[w]);
+        res.sendStatus(404);
 }
+
 function createWebsite(req, res)
 {
     var userId = req.params.userId;
@@ -72,15 +74,16 @@ function updateWebsite(req, res) {
     {
         if(websites[w]._id === websiteId)
         {
-                websites[w].name === updateWebsite.name;
-                websites[w].description === updateWebsite.description;
-                res.json(website[w]);
+                websites[w].name = updateWebsite.name;
+                websites[w].description = updateWebsite.description;
+                res.json(websites[w]);
         }
     }
 }
 
 function deleteWebsite(req, res)
 {
+    var websiteId = req.params.websiteId;
     for(var w in websites) {
 
         if(websites[w]._id === websiteId){

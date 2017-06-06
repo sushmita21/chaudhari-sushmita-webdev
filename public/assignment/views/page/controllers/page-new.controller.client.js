@@ -11,21 +11,25 @@
         var model = this;
         var userId = $routeParams['uid'];
         var websiteId = $routeParams['wid'];
+        model.userId = userId;
+        model.websiteId = websiteId;
 
         function init() {
-            var pages = PageService.findPageByWebsiteId(websiteId);
-            model.pages = pages;
+            var promise = PageService.findPageByWebsiteId(websiteId);
+            promise.then(function (pages) {
+                model.pages = pages;
+            })
         }init();
 
 
-        model.userId = userId;
-        model.websiteId = websiteId;
 
         model.createPage = createPage;
 
         function createPage(newPage) {
-            var page = PageService.createPage(model.websiteId, newPage);
-            $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page");
+            var promise = PageService.createPage(model.websiteId, newPage);
+            promise.then(function (response) {
+                $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page");
+            })
         }
     }
 

@@ -48,7 +48,7 @@
         }
 
         function updateUser(userId, newUser) {
-            var url = "/api/user/" + userId;
+            var url = "/api/user/"+ userId;
             return $http.put(url, newUser)
                 .then(function (response) {
                     return response.data;
@@ -67,7 +67,7 @@
              return null;*/
         }
 
-        function deleteUserById(uid) {
+        function deleteUserById(userId) {
 
             var url = "/api/user/" + userId;
             return $http.delete(url)
@@ -100,6 +100,7 @@
         }
 
         function createUser(newUser) {
+            console.log("cuser");
             var url = "/api/user/";
             return $http.post(url, newUser)
                 .then(function (response) {

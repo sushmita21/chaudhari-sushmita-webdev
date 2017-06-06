@@ -6,16 +6,16 @@
 
         var model = this;
         var userId = $routeParams['uid'];
+        model.userId = userId;
+
         function init() {
             var promise = WebsiteService.findWebsitesByUser(userId);
-            promise.then(function()
+            promise.then(function(websites)
             {
                 model.websites = websites;
             });
-
         }
         init();
-        model.userId = userId;
         model.createWebsite = createWebsite;
 
         function createWebsite(website) {
@@ -24,8 +24,6 @@
             {
                 $location.url("/user/" + model.userId + "/website");
             });
-
-
         }
     }
 

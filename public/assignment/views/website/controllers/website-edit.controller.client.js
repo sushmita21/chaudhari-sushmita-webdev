@@ -5,26 +5,26 @@
 
     function WebsiteEditController($routeParams, WebsiteService ,$location) {
         var model = this;
-        var userId = $routeParams['uid'];
+        model.userId = $routeParams['uid'];
         model.websiteId = $routeParams['wid'];
 
         function init() {
-            var promise = WebsiteService.findAllWebsitesByUser(model.userId);
+            var promise = WebsiteService.findWebsitesByUser(model.userId);
             promise.then(function(websites)
             {
                 model.websites = websites;
             });
 
-            var promise1 = WebsiteService.findWebsiteById(model.websiteId);
-            promise.then(function (websites)
+            var promise = WebsiteService.findWebsiteById(model.websiteId);
+            promise.then(function (website)
             {
-                model.websites = websites;
+                model.website = website;
             });
 
         }
         init();
 
-        model.deleteWebsite = deleteWebsite;
+
         function deleteWebsite() {
             var promise = WebsiteService.deleteWebsite(model.websiteId);
             promise.then(function(website)
@@ -36,6 +36,8 @@
         }
 
         model.updateWebsite = updateWebsite;
+        model.deleteWebsite = deleteWebsite;
+
         function updateWebsite(website) {
             var promise = WebsiteService.updateWebsite(model.websiteId, website);
             promise.then(function(website)

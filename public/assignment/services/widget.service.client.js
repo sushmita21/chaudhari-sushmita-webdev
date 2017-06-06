@@ -1,12 +1,11 @@
-
 (function () {
     angular
         .module("WebAppMaker")
         .service("WidgetService", WidgetService);
 
-    function WidgetService() {
+    function WidgetService($http) {
 
-        var widgets = [
+        /*var widgets = [
                 { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "Franz Kafka"},
                 { "_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Follor your most intense obsessions mercilessly."},
                 { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
@@ -18,7 +17,7 @@
                 { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>After studying law at the University of Prague, he worked in insurance and wrote in the evenings. In 1923, he moved to Berlin to focus on writing, but died of tuberculosis shortly after. His friend Max Brod published most of his work posthumously, such as <em>Amerika</em> and <em>The Castle</em>.</p>"}
             ]
         ;
-
+*/
 
         var api={
             "findWidgetById":findWidgetById,
@@ -31,38 +30,68 @@
         return api;
 
         function findWidgetById(widgetId) {
-            for(var w in widgets) {
+            var url ="/api/widget/"+widgetId;
+            return $http.get(url)
+                .then(function (response)
+                {
+                    return response.data;
+                });
+
+            /*for(var w in widgets) {
                 if(widgets[w]._id === widgetId) {
                     return widgets[w];
                 }
             }
             return null;
+        */
         }
 
         function deleteWidget(widgetId) {
-            for(var w in widgets) {
+            var url ="/api/widget/"+widgetId;
+            return $http.delete(url)
+                .then(function (response)
+                {
+                    return response.data;
+                });
+
+            /*for(var w in widgets) {
                 var widget = widgets[w];
                 if( widget._id === widgetId ) {
                     widgets.splice(w,1);
                     return "WidgetDeleted";
                 }
-            }
-            return "UnableToDeleteWidget";
+                }
+            */
+            /*return "UnableToDeleteWidget";*/
         }
 
         function findWidgetByPageId(pageId) {
-            var widgetList = [];
+            var url ="/api/page/"+pageId+"/widget";
+            return $http.get(url)
+                .then(function (response)
+                {
+                    return response.data;
+                });
+
+            /*var widgetList = [];
             for(var w in widgets){
                 if(widgets[w].pageId === pageId){
                     var widget = widgets[w];
                     widgetList.push(widget);
                 }
             }
-            return widgetList;
+            return widgetList;*/
         }
 
         function createWidget(pageId, widget) {
-            var len = widgets.length;
+            var url ="/api/page/"+pageId+"/widget";
+            return $http.post(url, widget)
+                .then(function (response)
+                {
+                    return response.data;
+                });
+
+            /*var len = widgets.length;
             var lastWidgetId = widgets[len - 1]._id;
             var newId = parseInt(lastWidgetId) + 1;
 
@@ -103,18 +132,26 @@
             }
 
             widgets.push(newWidget);
-            return newWidget;
+            return newWidget;*/
         }
 
         function updateWidget(widgetId, updatedWidget) {
-            for(var w in widgets) {
+            var url ="/api/widget/"+widgetId;
+            return $http.put(url, updatedWidget)
+                .then(function (response)
+                {
+                    return response.data;
+                });
+
+
+            /*for(var w in widgets) {
                 var widget = widgets[w];
                 if( widget._id === widgetId) {
                     widgets[w] = updatedWidget;
                     return widget;
                 }
             }
-            return null;
+            return null;*/
         }
     }
 })();

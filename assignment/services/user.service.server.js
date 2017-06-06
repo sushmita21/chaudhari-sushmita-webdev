@@ -19,22 +19,21 @@ app.delete('/api/user/:userId', deleteUser);
 function updateUser(req, res)
 {
     var newUser = req.body;
+    var userId = req.params.userId;
     for (var u in users)
     {
         var user = users[u];
-        for (var u in users)
-        {
             if (user._id === userId)
             {
                 users[u].firstName = newUser.firstName;
-                users[u].LastName = newUser.LastName;
+                users[u].lastName = newUser.lastName;
                 users[u].email = newUser.email;
-                res.sendStatus(200);
+                res.json(users[u]);
+                return;
             }
-        }
-        res.sendStatus(404);
-
     }
+    res.sendStatus(404);
+
 }
 
     function deleteUser(req, res)
@@ -55,6 +54,7 @@ function updateUser(req, res)
     function createUser(req, res)
     {
         var newUser = req.body;
+
         var len = users.length;
         var lastUser = users[len - 1];
         var newId = parseInt(lastUser._id) + 1;
@@ -99,25 +99,27 @@ function updateUser(req, res)
 
     var username = req.query.username;
     var password = req.query.password;
+    for(var u in users)
+    {
+        var user = users[u];
+        if( user.username === username &&
+            user.password === password)
+        {
+            res.json(user);
+            return;
+        }
+    }
+        res.sendStatus(404);
 
-    var user = users.find(function (arrUser) {
-        return arrUser.username == username && arrUser.password == password;
-    });
-
-    res.json(user);
     }
 
     function findUser(req, res)
     {
-        console.log(921921921921912);
         var username = req.query['username'];
         var password = req.query['password'];
-        console.log("sush");
         if(username && password)
         {
-            console.log("fdgdfgh");
             findUserByCredentials(req, res);
-
         }
         else if(username)
         {

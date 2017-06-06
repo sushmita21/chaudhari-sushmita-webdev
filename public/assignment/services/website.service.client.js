@@ -45,8 +45,9 @@
 
 
         function createWebsite(userId , website) {
+
             var url = "/api/user/"+userId +"/website";
-            return $http.post(url, websiteId)
+            return $http.post(url, website)
                 .then(function (response) {
                     return response.data;
                 });
@@ -62,8 +63,8 @@
         }
 
         function deleteWebsite(websiteId) {
-            var url = "/api/website";
-            return $http.delete(url, websiteId)
+            var url = "/api/website/" + websiteId;
+            return $http.delete(url)
                 .then(function (response) {
                     return response.data;
                 });
@@ -82,7 +83,7 @@
 
         function findWebsiteById(wid) {
             var url = "/api/website/"+wid;
-            return $http.get(url, websiteId)
+            return $http.get(url)
                 .then(function (response) {
                     return response.data;
                 });
@@ -96,11 +97,12 @@
 
 
         function updateWebsite(wid ,updatedWebsite) {
-            var url ="/api/website/"+wid +updatedWebsite;
-            return $http.put(url).then(function (response)
-            {
-                return respose.data;
-            });
+            var url ="/api/website/"+wid;
+            return $http.put(url,updatedWebsite)
+                .then(function (response)
+                    {
+                        return response.data;
+                    });
 
 
             /*for(var w in websites) {
