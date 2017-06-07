@@ -101,7 +101,7 @@ function findWidgetByPageId(req, res)
 {
     var widgetList = [];
     var pageId = req.params.pageId;
-    console.log(pageId);
+
     for(var w in widgets){
         if(widgets[w].pageId === pageId){
             widgetList.push(widgets[w]);
