@@ -2,6 +2,14 @@
  * Created by ch_su_000 on 01/06/2017.
  */
 var app =require('../../express');
+
+app.get("/api/user/:userId/website",findWebsitesByUser);
+app.get("/api/website/:websiteId",findWebsiteById);
+app.post("/api/user/:userId/website",createWebsite);
+app.put("/api/website/:websiteId",updateWebsite);
+app.delete("/api/website/:websiteId",deleteWebsite);
+
+
 var websites = [
         { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
         { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
@@ -12,12 +20,6 @@ var websites = [
         { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }
     ];
 
-app.get("/api/user/:userId/website",findWebsitesByUser);
-app.get("/api/website/:websiteId",findWebsiteById);
-
-app.post("/api/user/:userId/website",createWebsite);
-app.put("/api/website/:websiteId",updateWebsite);
-app.delete("/api/website/:websiteId",deleteWebsite);
 
 function findWebsitesByUser(req, res)
 {

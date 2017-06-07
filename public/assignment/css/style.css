@@ -76,8 +76,9 @@ body {
     border-left: thin solid silver;
 }
 
-move-glyphicon
+.widget-div
 {
-    /*some css*/
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 

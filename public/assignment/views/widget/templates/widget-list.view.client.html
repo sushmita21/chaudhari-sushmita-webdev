@@ -19,9 +19,8 @@
     </div>
 </nav>
 
-<div class="container-fluid">
-
-    <div ng-repeat="widget in model.widgets">
+<div wbdv-sortable class="container-fluid">
+    <div ng-repeat="widget in model.widgets"  class="widget-div">
         <div class="container-fluid jga-toolbar">
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
                 <span class="glyphicon glyphicon-cog"></span>

@@ -6,10 +6,13 @@
     angular.module('WebAppMaker')
         .directive('wbdvSortable',wbdvSortable);
     function wbdvSortable() {
+        console.log("directive");
         function linkfunc(scope, element, attributes, controller)
         {
             element.sortable({
                 start: function (event, li) {
+
+                    console.log("sort");
                     li.item.startPos = li.item.index();
 
 
@@ -21,7 +24,7 @@
                 },
                 axis: 'y',
                 cursor:"move",
-                handle: "some-style"
+                handle: ".some-style"
 
                 });
         }
@@ -36,7 +39,7 @@
         model.widgetFunc = widgetFunc;
         
         function widgetFunc(startPos, endPos) {
-            var pageId = $routeParams.pageId;
+            var pageId = $routeParams.pid;
             WidgetService.sortWidget(pageId, startPos, endPos)
                 .then(function () {
                 },

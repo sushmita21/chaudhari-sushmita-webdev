@@ -3,6 +3,13 @@
  */
 var app = require('../../express');
 
+app.post("/api/website/:websiteId/page",createPage);
+app.delete("/api/page/:pageId", deletePage);
+app.get("/api/website/:websiteId/page",findPageByWebsiteId);
+app.get("/api/page/:pageId",findPageById);
+app.put("/api/page/:pageId",updatePage);
+
+
 var pages = [
 
     { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
@@ -10,13 +17,6 @@ var pages = [
     { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
 
 ];
-
-
-app.post("/api/website/:websiteId/page",createPage);
-app.delete("/api/page/:pageId", deletePage);
-app.get("/api/website/:websiteId/page",findPageByWebsiteId);
-app.get("/api/page/:pageId",findPageById);
-app.put("/api/page/:pageId",updatePage);
 
 
 

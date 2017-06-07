@@ -1,5 +1,11 @@
 var app = require('../../express');
 
+app.get("/api/user/", findUser);
+app.get('/api/user/:userId', findUserById);
+app.put('/api/user/:userId', updateUser);
+app.post('/api/user/', createUser);
+app.delete('/api/user/:userId', deleteUser);
+
 
 var users =  [
     {_id: "123", username: "alice",    password: "alice", email: "alice@husky.neu.edu",  firstName: "Alice",  lastName: "Wonder"  },
@@ -9,12 +15,6 @@ var users =  [
     {_id: "567", username: "chaudhari", password: "chaudhari", email: "chaudhari.su@husky.neu.edu", firstName: "Sushmita",   lastName: "Chaudhari" }
 ];
 
-
-app.get("/api/user/", findUser);
-app.get('/api/user/:userId', findUserById);
-app.put('/api/user/:userId', updateUser);
-app.post('/api/user/', createUser);
-app.delete('/api/user/:userId', deleteUser);
 
 function updateUser(req, res)
 {

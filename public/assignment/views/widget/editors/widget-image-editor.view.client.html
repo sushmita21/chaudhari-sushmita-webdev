@@ -1,38 +1,45 @@
+<div class="form-group">
+    <label for="inputurl">URL</label>
+    <input type="text"
+           id="inputurl"
+           class="form-control"
+           ng-model="model.widget.url"/>
 
-    <div class="form-group">
-        <label for="inputurl">URL</label>
-        <input type="text"
-               id="inputurl"
-               class="form-control"
-               ng-model="model.widget.url"/>
+    <form action ="api/upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="inputwidth">Width</label>
+            <input type="text"
+                   id="inputwidth"
+                   class="form-control"
+                   ng-model="model.widget.width"/>
+        </div>
+        <label for="inputimage">Upload</label>
+        <input name ="myFile" type="file"
+               id="inputimage"
+               class="form-control"/>
+        <input name ="uid"
+               value="{{model.userId}}"
+               class="hidden"/>
+        <input name ="wid"
+               value="{{model.websiteId}}"
+               class="hidden"/>
+        <input name ="widgetId"
+               value="{{model.widget._id}}"
+               class="hidden"/>
+        <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
+    </form>
+</div>
 
-        <form action ="api/upload" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="inputwidth">Width</label>
-                <input type="text"
-                       id="inputwidth"
-                       class="form-control"
-                       ng-model="model.widget.width"/>
-            </div>
-                <label for="inputimage">Upload</label>
-                <input name ="myFile" type="file"
-                       id="inputimage"
-                       class="form-control"/>
-                <input name ="uid" type="file"
-                   id="uid"
-                   class="form-control"/>
-                <input name ="wid" type="file"
-                   id="wid"
-                   class="form-control"/>
-                <input name ="widgetId" type="file"
-                   id="widgetId"
-                   class="form-control"/>
-        </form>
-    </div>
-    <div class="form-group">
-        <a class="btn btn-danger btn-block"
-           ng-click="model.deleteWidget(model.widget._id)">
-            Delete
-        </a>
-    </div>
+<div class="form-group">
 
+    <a class="btn btn-primary btn-block"
+       href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widget._id}}/flickrsearch">
+        Flickr Image Search
+    </a>
+
+    <a class="btn btn-danger btn-block"
+       ng-click=
+               "model.deleteWidget(model.widget._id)">
+        Delete
+    </a>
+</div>

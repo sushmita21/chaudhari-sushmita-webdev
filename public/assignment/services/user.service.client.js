@@ -100,7 +100,6 @@
         }
 
         function createUser(newUser) {
-            console.log("cuser");
             var url = "/api/user/";
             return $http.post(url, newUser)
                 .then(function (response) {

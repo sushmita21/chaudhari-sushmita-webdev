@@ -3,31 +3,34 @@
  */
 var app = require("../../express");
 var multer = require('multer');
+var fs = require('fs');
 var upload = multer({ dest: __dirname+'/../../public/uploads' });
-
-
-
-
-var widgets = [
-        { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "Franz Kafka"},
-        { "_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Follor your most intense obsessions mercilessly."},
-        { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-            "url": "http://lorempixel.com/400/200/"},
-        { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Author Franz Kafka explored the human struggle for understanding and security in his novels such as Amerika, The Trial and The Castle. Born on July 3, 1883, in Prague, capital of what is now the Czech Republic, writer Franz Kafka grew up in an upper middle-class Jewish family.</p>"},
-        { "_id": "567", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Franz Kafka"},
-        { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-            "url": "https://youtu.be/g4LyzhkDNBM" },
-        { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>After studying law at the University of Prague, he worked in insurance and wrote in the evenings. In 1923, he moved to Berlin to focus on writing, but died of tuberculosis shortly after. His friend Max Brod published most of his work posthumously, such as <em>Amerika</em> and <em>The Castle</em>.</p>"}
-    ];
-
-
 
 app.post("/api/page/:pageId/widget/", createWidget);
 app.get("/api/page/:pageId/widget", findWidgetByPageId);
 app.get("/api/widget/:widgetId/", findWidgetById);
 app.put("/api/widget/:widgetId/", updateWidget);
 app.delete("/api/widget/:widgetId", deleteWidget);
-app.post ("/api/upload", upload.single('myFile'), uploadImage);
+app.put("/page/:pageId/widget", sortWidget);
+app.post ("/assignment/api/upload", upload.single('myFile'), uploadImage);
+
+
+
+var widgets = [
+        { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "Franz Kafka", index: 2},
+        { "_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Follor your most intense obsessions mercilessly.", index:3},
+        { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
+            "url": "http://lorempixel.com/400/200/", index:5},
+        { "_id": "456", "widgetType": "HTML", "pageId": "321", "text":
+            "<p>Author Franz Kafka explored the human struggle for understanding and security in his novels such as Amerika, " +
+            "The Trial and The Castle. Born on July 3, 1883, in Prague, capital of what is now the Czech Republic, writer Franz " +
+            "Kafka grew up in an upper middle-class Jewish family.</p>", index: 6},
+        { "_id": "567", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Franz Kafka", index:1},
+        { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
+            "url": "https://youtu.be/g4LyzhkDNBM", index:0},
+        { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>After studying law at the University of Prague, he worked in insurance and wrote in the evenings. In 1923, he moved to Berlin to focus on writing, but died of tuberculosis shortly after. His friend Max Brod published most of his work posthumously, such as <em>Amerika</em> and <em>The Castle</em>.</p>", index:4}
+    ];
+
 
 function createWidget(req, res)
 {
@@ -57,14 +60,16 @@ function createWidget(req, res)
                 widgetType: widget.type,
                 pageId: pageId,
                 size: widget.size,
-                text: widget.text};
+                text: widget.text,
+                index: newIndex};
             break;
         case "HTML":
             newWidget = {
                 _id: newWidgetId,
                 widgetType: widget.type,
                 pageId: pageId,
-                text: widget.text};
+                text: widget.text,
+                index: newIndex};
             break;
         case "IMAGE":
             newWidget = {
@@ -72,7 +77,8 @@ function createWidget(req, res)
                 widgetType: widget.type,
                 pageId: pageId,
                 width: widget.width,
-                url: widget.url};
+                url: widget.url,
+                index: newIndex};
             break;
         case "YOUTUBE":
             newWidget = {
@@ -80,7 +86,8 @@ function createWidget(req, res)
                 widgetType: widget.type,
                 pageId: pageId,
                 width: widget.width,
-                url: widget.url};
+                url: widget.url,
+                index: newIndex};
             break;
     }
 
@@ -102,7 +109,6 @@ function findWidgetByPageId(req, res)
             return a.index > b.index;
         }
     );
-    // return widgetList;
     res.json(widgetList);
 }
 
@@ -115,7 +121,7 @@ function findWidgetById(req, res) {
             return;
         }
     }
-    res.sendStatus(400);
+    res.sendStatus(404);
 }
 
 function updateWidget(req, res)
@@ -148,11 +154,82 @@ function deleteWidget(req, res)
             //return "WidgetDeleted";
         }
     }
-    res.sendStatus(400);
+    res.sendStatus(404);
     //return "UnableToDeleteWidget";
 
 }
 
-function updateIndices() {
-    
+function updateIndices(deletedIndex, deletedWPageId) {
+    var updateWidgets = widgets.filter(function (w) {
+        return w.pageId = deletedWPageId;
+
+    });
+    var widgetUpdateIndex = updateWidgets.filter(function (w) {
+        return w.index > deletedIndex;
+
+    })
+    if(widgetUpdateIndex)
+    {
+        widgetUpdateIndex.map(function(widget)
+        {
+            widget.index--;
+        })
+    }
+
+}
+
+function sortWidget(req, res)
+{
+    var pageId = req.params.pageId;
+    var startIndex = parseInt(req.query.initial);
+    var endIndex = parseInt(req.query.final);
+    var widgetList = widgets.filter(function (currentWidget) {
+        return currentWidget.pageId === pageId;
+    })
+
+    var startWidget = widgetList.find(function (currentWidget) {
+        return currentWidget.index === startIndex;
+    })
+
+
+    var endWidget = widgetList.find(function (currentWidget) {
+        return currentWidget.index === endIndex;
+    })
+
+    startWidget.index = endIndex;
+
+    if(startIndex < endIndex){
+        widgetList.filter(function (currentWidget) {
+            return currentWidget.index > startIndex && currentWidget.index < endIndex;
+        }).map(function (currentWidget) {
+            currentWidget.index -= 1;
+        });
+        endWidget.index -=1;
+    }
+    else {
+        widgetList.filter(function (currentWidget) {
+            return currentWidget.index < startIndex && currentWidget.index > endIndex;
+        }).map(function (currentWidget) {
+            currentWidget.index += 1;
+        });
+        endWidget.index +=1;
+    }
+    res.sendStatus(200);
+}
+
+function uploadImage(req, res) {
+    var widgetId = req.body.widgetId;
+    var uid = req.body.uid;
+    var wid = req.body.wid;
+    var myFile = req.file;
+    imgWidget = widgets.find(function (id) {
+        return id._id == widgetId;
+    });
+    if (imgWidget.url) {
+        fs.unlink(__dirname + '/../../public/uploads' + "/" + imgWidget["fileName"], function () {
+        });
+    }
+    imgWidget.url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
+    imgWidget["fileName"] = myFile.filename;
+    res.redirect(req.get('referrer') + "#/user/" + uid + "/website/" + wid + "/page/" + imgWidget.pageId + "/widget");
 }

@@ -11,11 +11,16 @@
         model.pageId = $routeParams.pid;
 
         function init() {
-            model.widgets = WidgetService.findWidgetsByPageId(model.pageId);
+            var promise = WidgetService.findWidgetsByPageId(model.pageId);
+            promise.then(function (widgets) {
+                model.widgets  = widgets;
+            },function (error) {
+            })
         }init();
 
         model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
         model.getTrustedHtml = getTrustedHtml;
+
 
 
         function getTrustedHtml(html) {

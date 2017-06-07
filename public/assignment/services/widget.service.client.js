@@ -24,7 +24,8 @@
             "deleteWidget":deleteWidget,
             "createWidget":createWidget,
             "findWidgetsByPageId":findWidgetByPageId,
-            "updateWidget":updateWidget
+            "updateWidget":updateWidget,
+            "sortWidget":sortWidget
         };
 
         return api;
@@ -152,6 +153,13 @@
                 }
             }
             return null;*/
+        }
+        function sortWidget(pageId, startIndex, endIndex) {
+            var url = "/page/"+pageId+"/widget?initial="+startIndex+"&final="+endIndex;
+            return $http.put(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
     }
 })();
