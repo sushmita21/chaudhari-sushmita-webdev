@@ -39,8 +39,9 @@ function createWidget(req, res)
     var widgetLength = widgets.length;
     var lastWidgetId = widgets[widgetLength-1]._id;
     var newWidgetId = (parseInt(lastWidgetId) + 1).toString();
+
     var sortedWidgetList = widgets.filter(function (w) {
-        return w.pageId = pageId;
+        return w.pageId == pageId;
     })
         .sort(function(a, b)
         {
@@ -52,6 +53,7 @@ function createWidget(req, res)
         currenthighestIndex = sortedWidgetList[0].index + 1;
     }
     var newIndex = currenthighestIndex;
+
     var newWidget;
     switch (widget.type){
         case "HEADER":
@@ -99,6 +101,7 @@ function findWidgetByPageId(req, res)
 {
     var widgetList = [];
     var pageId = req.params.pageId;
+    console.log(pageId);
     for(var w in widgets){
         if(widgets[w].pageId === pageId){
             widgetList.push(widgets[w]);
@@ -109,6 +112,7 @@ function findWidgetByPageId(req, res)
             return a.index > b.index;
         }
     );
+    console.log(widgetList);
     res.json(widgetList);
 }
 
