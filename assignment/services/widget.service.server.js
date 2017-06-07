@@ -112,7 +112,6 @@ function findWidgetByPageId(req, res)
             return a.index > b.index;
         }
     );
-    console.log(widgetList);
     res.json(widgetList);
 }
 
@@ -165,7 +164,7 @@ function deleteWidget(req, res)
 
 function updateIndices(deletedIndex, deletedWPageId) {
     var updateWidgets = widgets.filter(function (w) {
-        return w.pageId = deletedWPageId;
+        return w.pageId == deletedWPageId;
 
     });
     var widgetUpdateIndex = updateWidgets.filter(function (w) {
