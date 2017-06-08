@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "pocApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"> </script>
+    <script src = "app.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <title>Title</title>
+</head>
+<body>
+<div class="container-fluid"
+     ng-controller="pocController as model">
+
+
+    <h1>Zomato Api</h1>
+    <input ng-model = "model.query"
+           class="form-control"
+           placeholder="cuisine name"/>
+    <button class="btn btn-primary btn-block" ng-click ="model.searchRestaurants(model.query)">Search</button>
+
+    <h2>Search Results</h2>
+
+    <ul class="list-group">
+        <li ng-repeat = "restaurant in model.restaurants" class="list-group-item">
+            <img ng-src = "{{restaurant.restaurant.featured_image}}" width="100px" />
+            {{restaurant.restaurant.id}}
+            {{restaurant.restaurant.name}}
+            {{restaurant.restaurant.location.locality}}
+            {{restaurant.restaurant.location.city}}
+        </li>
+
+    </ul>
+</div>
+
+</body>
+</html>

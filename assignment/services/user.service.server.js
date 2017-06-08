@@ -1,5 +1,5 @@
 var app = require('../../express');
-
+//var model = require('user.model.server');
 app.get("/api/user/", findUser);
 app.get('/api/user/:userId', findUserById);
 app.put('/api/user/:userId', updateUser);
