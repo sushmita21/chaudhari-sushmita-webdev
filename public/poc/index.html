@@ -49,7 +49,12 @@
         <div class = "col-xs-6">
             <h2>Details</h2>
 
-            {{model.restaurant}}
+            <h3>{{model.restaurant.name}}</h3>
+            <img ng-src = "{{model.restaurant.featured_image}}" width="200px" />
+            <h4> @{{model.restaurant.location.locality}} , {{model.restaurant.location.city}}</h4>
+
+            <h4>Ratings : {{model.restaurant.user_rating.aggregate_rating}}</h4>
+            <h4>Cost for Two : {{model.restaurant.average_cost_for_two}} $ </h4>
         </div>
 
 
