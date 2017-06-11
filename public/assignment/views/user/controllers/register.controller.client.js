@@ -16,12 +16,12 @@
 
         function register(inputUser)
         {
-            if(inputUser == null || inputUser.username == null || inputUser.password === null || inputUser.verifypassword === null)
+           /* if(inputUser == null || inputUser.username == null || inputUser.password === null || inputUser.verifypassword === null)
             {
                 model.error = "Username , Password and Verify Password fields are mandatory";
                 return;
             }
-
+*/
             var userName = inputUser.username;
             var promise = UserService.findUserByUsername(userName);
 

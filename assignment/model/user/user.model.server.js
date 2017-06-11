@@ -22,10 +22,10 @@ function findUserById(userId) {
 }
 function findUserByUsername(username) {
     console.log("sfsdfs");
-    return userModel.findOne({"username":username});
+    return userModel.find({"username":username});
 }
 function findUserByCredentials(username, password) {
-    return userModel.findOne({username:username, password: password});
+    return userModel.find({username:username, password: password});
 }
 function updateUser(userId, newUser)
 {

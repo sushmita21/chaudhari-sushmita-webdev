@@ -7,7 +7,7 @@ var widgetModel = mongoose.model('WidgetModel', widgetSchema);
 var fs = require("fs");
 var publicDirectory =__dirname+"/../../../public";
 
-modules.export = widgetModel;
+module.exports = widgetModel;
 
 widgetModel.createWidget= createWidget;
 widgetModel.findAllWidgetsForPage = findAllWidgetsForPage;

@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var widgetModel = require('../widget/widget.model.server');
 var PageSchema = require('./page.schema.server')
 var PageModel = mongoose.model('PageModel', PageSchema);
-module.export = PageModel;
+module.exports = PageModel;
 
 PageModel.createPage= createPage;
 PageModel.findPageByWebsiteId= findPageByWebsiteId;
@@ -18,7 +18,7 @@ function findPageByWebsiteId(websiteId){
     return PageModel.find({_website:websiteId});
 }
 function findPageById(pageId){
-    return PageModel.findOne({_id:pageId});
+    return PageModel.find({_id:pageId});
 }
 function updatePage(pageId, updatedPage){
     return PageModel.update({_id:pageId},{$set: updatedPage});

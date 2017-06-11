@@ -15,7 +15,7 @@ WebsiteModel.createWebsiteForUser = createWebsiteForUser;
 WebsiteModel.updateWebsite = updateWebsite;
 WebsiteModel.deleteWebsite = deleteWebsite;
 WebsiteModel.deleteWebsiteChildren = deleteWebsiteChildren;
-modules.export = WebsiteModel;
+module.exports = WebsiteModel;
 
 function createWebsiteForUser(userId, website)
 {
@@ -42,7 +42,7 @@ function createWebsiteForUser(userId, website)
 
 function findWebsiteById(websiteId)
 {
-    return WebsiteModel.findOne(websiteId);
+    return WebsiteModel.find(websiteId);
 }
 function findWebsitesByUser(userId)
 {
@@ -55,7 +55,7 @@ function updateWebsite(websiteId, updatedWebsite)
 }
 function deleteWebsite(websiteId) {
     return WebsiteModel
-        .findOne({_id:websiteId})
+        .find({_id:websiteId})
         .populate('_user')
         .then(function (website) {
         website._user.websites.splice(website._user.websites.indexOf(websiteId),1);

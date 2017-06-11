@@ -12,4 +12,4 @@ var WebsiteSchema = mongoose.Schema(
         pages:[{type: mongoose.Schema.Types.ObjectId, ref:'PageModel'}],
     },
     {collection:'assignment.websites'});
-moduls.export = WebsiteSchema;
+module.exports = WebsiteSchema;
