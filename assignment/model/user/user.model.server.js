@@ -3,8 +3,8 @@
  */
 
 var mongoose = require('mongoose');
-var UserSchema = require('./user.schema.server')
-var userModel = mongoose.model('UserModel', UserSchema);
+var userSchema = require('./user.schema.server');
+var userModel = mongoose.model('UserModel', userSchema);
 
 userModel.createUser = createUser;
 userModel.findUserById = findUserById;
@@ -21,7 +21,6 @@ function findUserById(userId) {
     return userModel.findById(userId);
 }
 function findUserByUsername(username) {
-    console.log("sfsdfs");
     return userModel.find({"username":username});
 }
 function findUserByCredentials(username, password) {
@@ -58,8 +57,8 @@ function addWebsite(userId, websiteId)
 {
     return userModel.findById(userId)
         .then(function(user)
-    {
-       user.websites.push(websiteId);
-       return user.save();
-    });
+        {
+            user.websites.push(websiteId);
+            return user.save();
+        });
 }

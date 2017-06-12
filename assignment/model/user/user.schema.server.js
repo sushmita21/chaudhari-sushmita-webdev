@@ -3,14 +3,14 @@
  */
 
 var mongoose = require("mongoose");
-var UserSchema = mongoose.Schema({
-        username: String,
-        password: String,
-        firstName: String,
-        lastName: String,
-        email: String,
-        phone: String,
-        websites: [{type: mongoose.Schema.Types.ObjectId, ref:'WebsiteModel'}],
-        dateCreated: {type:Date, default: Date.now()}
-    }, {collection: "assignment.users"});
-module.exports = UserSchema;
+var userSchema = mongoose.Schema({
+    username: String,
+    password: String,
+    firstName: String,
+    lastName: String,
+    email: String,
+    phone: String,
+    websites: [{type: mongoose.Schema.Types.ObjectId, ref:'WebsiteModel'}],
+    dateCreated: {type:Date, default: Date.now()}
+}, {collection: "assignment.users"});
+module.exports = userSchema;

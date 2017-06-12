@@ -14,8 +14,9 @@
             var promise = WidgetService.findWidgetById(model.widgetId);
             promise.then(function(result)
             {
+                console.log(result);
                 model.widget =result;
-            });
+            })
 
         }init();
 

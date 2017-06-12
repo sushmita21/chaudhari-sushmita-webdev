@@ -1,15 +1,15 @@
 /**
  * Created by ch_su_000 on 07/06/2017.
  */
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
-var WebsiteSchema = mongoose.Schema(
+var websiteSchema = mongoose.Schema(
     {
-        _user:{type: mongoose.Schema.ObjectId,  ref: 'UserModel'},
+        _user:{type: mongoose.Schema.Types.ObjectId,  ref: 'UserModel'},
         name: String,
         description: String,
-        dateCreated:{type: Date, default: Date.now},
         pages:[{type: mongoose.Schema.Types.ObjectId, ref:'PageModel'}],
+        dateCreated:{type: Date, default: Date.now}
     },
-    {collection:'assignment.websites'});
-module.exports = WebsiteSchema;
+    {collection:"assignment.websites"});
+module.exports = websiteSchema;

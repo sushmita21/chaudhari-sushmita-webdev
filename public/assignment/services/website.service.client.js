@@ -1,20 +1,9 @@
-
 (function () {
     angular
         .module("WebAppMaker")
         .service("WebsiteService", WebsiteService);
 
     function WebsiteService($http) {
-        var websites = [
-                { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
-                { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
-                { "_id": "456", "name": "Gizmodo",     "developerId": "456", "description": "Lorem" },
-                { "_id": "890", "name": "Go",          "developerId": "123", "description": "Lorem" },
-                { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-                { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Lorem" },
-                { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }
-            ]
-        ;
 
         var api={
             "findWebsitesByUser":findWebsitesByUser,
@@ -25,7 +14,7 @@
         };
 
         return api;
-        
+
         function findWebsitesByUser(userId) {
             var url = "/api/user/"+userId +"/website";
             return $http.get(url)
@@ -34,13 +23,13 @@
                 });
 
             /*var listSites = [];
-            for(var w in websites){
-                if(websites[w].developerId === userId){
-                    listSites.push(websites[w]);
-                }
-            }
-            return listSites;
-            */
+             for(var w in websites){
+             if(websites[w].developerId === userId){
+             listSites.push(websites[w]);
+             }
+             }
+             return listSites;
+             */
         }
 
 
@@ -52,14 +41,14 @@
                     return response.data;
                 });
             /*var len =websites.length -1;
-            var  lastWebsite = websites[len]._id;
-            var wid = parseInt(lastWebsite) + 1
-            var newWebsite = {_id: wid.toString(),
-                name: website.name,
-                developerId: userId,
-                description: website.description};
-            websites.push(newWebsite);
-            return newWebsite;*/
+             var  lastWebsite = websites[len]._id;
+             var wid = parseInt(lastWebsite) + 1
+             var newWebsite = {_id: wid.toString(),
+             name: website.name,
+             developerId: userId,
+             description: website.description};
+             websites.push(newWebsite);
+             return newWebsite;*/
         }
 
         function deleteWebsite(websiteId) {
@@ -70,15 +59,13 @@
                 });
 
 
-          /*  for(var w in websites) {
-
-                if(websites[w]._id === websiteId){
-                    websites.splice(w ,1);
-                    return "WebsiteDeleted";
-                }
-
-            }
-            return "WebsiteNotFound";*/
+            /*  for(var w in websites) {
+             if(websites[w]._id === websiteId){
+             websites.splice(w ,1);
+             return "WebsiteDeleted";
+             }
+             }
+             return "WebsiteNotFound";*/
         }
 
         function findWebsiteById(wid) {
@@ -88,11 +75,11 @@
                     return response.data;
                 });
             /*for(var w in websites){
-                if(websites[w]._id === wid){
-                    return websites[w];
-                }
-            }
-            return null;*/
+             if(websites[w]._id === wid){
+             return websites[w];
+             }
+             }
+             return null;*/
         }
 
 
@@ -100,20 +87,20 @@
             var url ="/api/website/"+wid;
             return $http.put(url,updatedWebsite)
                 .then(function (response)
-                    {
-                        return response.data;
-                    });
+                {
+                    return response.data;
+                });
 
 
             /*for(var w in websites) {
-                var website = websites[w];
-                if( website._id === wid ) {
-                    websites[w].name = updWebsite.name;
-                    websites[w].description = updWebsite.description;
-                    return website;
-                }
-            }
-            return null;*/
+             var website = websites[w];
+             if( website._id === wid ) {
+             websites[w].name = updWebsite.name;
+             websites[w].description = updWebsite.description;
+             return website;
+             }
+             }
+             return null;*/
         }
 
 

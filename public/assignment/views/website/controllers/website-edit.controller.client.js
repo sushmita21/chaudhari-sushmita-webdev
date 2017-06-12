@@ -25,6 +25,9 @@
         init();
 
 
+        model.updateWebsite = updateWebsite;
+        model.deleteWebsite = deleteWebsite;
+
         function deleteWebsite() {
             var promise = WebsiteService.deleteWebsite(model.websiteId);
             promise.then(function(website)
@@ -35,8 +38,6 @@
 
         }
 
-        model.updateWebsite = updateWebsite;
-        model.deleteWebsite = deleteWebsite;
 
         function updateWebsite(website) {
             var promise = WebsiteService.updateWebsite(model.websiteId, website);

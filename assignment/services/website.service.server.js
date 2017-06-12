@@ -12,18 +12,18 @@ app.delete("/api/website/:websiteId",deleteWebsite);
 
 function findWebsitesByUser(req, res)
 {
-        var userId = req.params.userId;
-        /*var websiteList = [];
-        for(var w in websites)
-        {
-                if(websites[w].developerId === userId)
-                {
-                        websiteList.push(websites[w]);
-                }
-        }
-        res.json(websiteList);
-*/
-  websiteModel
+    var userId = req.params.userId;
+    /*var websiteList = [];
+     for(var w in websites)
+     {
+     if(websites[w].developerId === userId)
+     {
+     websiteList.push(websites[w]);
+     }
+     }
+     res.json(websiteList);
+     */
+    websiteModel
         .findWebsitesByUser(userId)
         .then(function (response) {
             res.json(response);
@@ -35,23 +35,25 @@ function findWebsitesByUser(req, res)
 
 function findWebsiteById(req, res)
 {
-        var websiteId = req.params.websiteId;
-        /*for(var w in websites)
-        {
-                if(websites[w]._id === websiteId)
-                {
-                    res.send(websites[w]);
-                    return;
-                }
-        }
-        res.sendStatus(404);
-*/websiteModel
-    .findWebsiteById(wid)
-    .then(function (response) {
-        res.json(response);
-    }, function (err) {
-        res.sendStatus(404);
-    });
+    var websiteId = req.params.websiteId;
+    /*for(var w in websites)
+     {
+     if(websites[w]._id === websiteId)
+     {
+     res.send(websites[w]);
+     return;
+     }
+     }
+     res.sendStatus(404);
+     */
+
+    websiteModel
+        .findWebsiteById(websiteId)
+        .then(function (response) {
+            res.json(response);
+        }, function (err) {
+            res.sendStatus(404);
+        });
 }
 
 function createWebsite(req, res)
@@ -60,19 +62,17 @@ function createWebsite(req, res)
     var newWebsite = req.body;
 
     /*var length =websites.length -1;
-    var lastWebsiteId = websites[length]._id;
-    var wid = parseInt(lastWebsiteId) + 1;
-
-    var newWebsite = {
-        _id: wid.toString(),
-        name: newWebsite.name,
-        developerId: userId,
-        description: newWebsite.description
-    };
-
-    websites.push(newWebsite);
-    res.json(newWebsite);
-*/
+     var lastWebsiteId = websites[length]._id;
+     var wid = parseInt(lastWebsiteId) + 1;
+     var newWebsite = {
+     _id: wid.toString(),
+     name: newWebsite.name,
+     developerId: userId,
+     description: newWebsite.description
+     };
+     websites.push(newWebsite);
+     res.json(newWebsite);
+     */
     websiteModel
         .createWebsiteForUser(userId, newWebsite)
         .then(function (website) {
@@ -84,18 +84,18 @@ function createWebsite(req, res)
 
 function updateWebsite(req, res) {
     var websiteId = req.params.websiteId;
-    var updateWebsite = req.body;
+    var updatedWebsite = req.body;
     /*for(var w in websites)
-    {
-        if(websites[w]._id === websiteId)
-        {
-                websites[w].name = updateWebsite.name;
-                websites[w].description = updateWebsite.description;
-                res.json(websites[w]);
-        }
-    }*/
+     {
+     if(websites[w]._id === websiteId)
+     {
+     websites[w].name = updateWebsite.name;
+     websites[w].description = updateWebsite.description;
+     res.json(websites[w]);
+     }
+     }*/
     websiteModel
-        .updateWebsite(wid, updatedWebsite)
+        .updateWebsite(websiteId, updatedWebsite)
         .then(function (response) {
             if(response.ok === 1 && response.n === 1){
                 res.sendStatus(200);
@@ -125,16 +125,14 @@ function deleteWebsite(req, res)
             res.sendStatus(404);
         });
 
-/*
-
-    for(var w in websites) {
-
-        if(websites[w]._id === websiteId){
-            websites.splice(w ,1);
-            res.sendStatus(200);
-            return ;
-        }
-*/
+    /*
+     for(var w in websites) {
+     if(websites[w]._id === websiteId){
+     websites.splice(w ,1);
+     res.sendStatus(200);
+     return ;
+     }
+     */
 
 
     //res.sendStatus(404);

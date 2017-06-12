@@ -4,10 +4,13 @@
 var mongoose = require('mongoose');
 var widgetSchema = require('./widget.schema.server')
 var widgetModel = mongoose.model('WidgetModel', widgetSchema);
+module.exports = widgetModel;
+
+var pageModel = require('../page/page.model.server');
+
 var fs = require("fs");
 var publicDirectory =__dirname+"/../../../public";
 
-module.exports = widgetModel;
 
 widgetModel.createWidget= createWidget;
 widgetModel.findAllWidgetsForPage = findAllWidgetsForPage;
@@ -15,35 +18,48 @@ widgetModel.findWidgetById = findWidgetById;
 widgetModel.updateWidget = updateWidget;
 widgetModel.deleteWidget = deleteWidget;
 widgetModel.sortWidget = sortWidget;
+widgetModel.deleteWidgetOfPage = deleteWidgetOfPage;
 
+
+
+function deleteWidgetOfPage(widgetId) {
+    return widgetModel.findById(widgetId)
+        .then(function (widget) {
+            if(widget.type == "IMAGE"){
+                deleteUploadedImage(widget.url);
+            }
+            return widgetModel.remove({_id: widgetId});
+        }, function (err) {
+            return err;
+        });
+}
 
 function findWidgetById(widgetId){
-    return WidgetModel.findById(widgetId).select('-__v');
+    return widgetModel.findById(widgetId).select('-__v');
 }
 
 function updateWidget(widgetId, updatedWidget){
-    return WidgetModel.update({_id:widgetId},{$set: updatedWidget});
+    return widgetModel.update({_id:widgetId},{$set: updatedWidget});
 }
 
 function deleteWidget(widgetId){
-    return WidgetModel.findById(widgetId).populate('_page').then(function (widget) {
+    return widgetModel.findById(widgetId).populate('_page').then(function (widget) {
         widget._page.widgets.splice(widget._page.widgets.indexOf(widgetId),1);
         widget._page.save();
         if(widget.type == "IMAGE"){
             deleteUploadedImage(widget.url);
         }
-        return WidgetModel.remove({_id:widgetId});
+        return widgetModel.remove({_id:widgetId});
     }, function (err) {
         return err;
     });
 }
 
 function createWidget(pageId, newWidget){
-    return WidgetModel
+    return widgetModel
         .create(newWidget)
         .then(function (widget) {
-            return model
-                .PageModel
+            return pageModel
                 .findPageById(pageId)
                 .then(function (page) {
                     widget._page = page._id;
@@ -60,7 +76,8 @@ function createWidget(pageId, newWidget){
 }
 
 function sortWidget(pageId, start, end) {
-    return model.pageModel
+    console.log(pageId , start ,end);
+    return pageModel
         .findPageById(pageId)
         .then(function (page) {
             page.widgets.splice(end, 0, page.widgets.splice(start, 1)[0]);
@@ -73,7 +90,7 @@ function sortWidget(pageId, start, end) {
 
 function findAllWidgetsForPage(pageId){
 
-    return model.pageModel
+    return pageModel
         .findPageById(pageId)
         .then(function (page) {
             var widgetsOfPage = page.widgets;
@@ -85,6 +102,21 @@ function findAllWidgetsForPage(pageId){
             return err;
         });
 }
+
+function getWidgetsRecursively(count, widgetsOfPage, widgetCollectionForPage) {
+    if(count == 0){
+        return widgetCollectionForPage;
+    }
+
+    return widgetModel.findById(widgetsOfPage.shift()).select('-__v')
+        .then(function (widget) {
+            widgetCollectionForPage.push(widget);
+            return getWidgetsRecursively(--count, widgetsOfPage, widgetCollectionForPage);
+        }, function (err) {
+            return err;
+        });
+}
+
 
 function deleteUploadedImage(imageUrl) {
 

@@ -14,8 +14,8 @@
 
 
         <p class="navbar-text pull-right">
-             <a ng-click="model.updateWidget(model.widget)"
-                class="navbar-link" >
+            <a ng-click="model.updateWidget(model.widget)"
+               class="navbar-link" >
                 <span class="glyphicon glyphicon-ok"></span>
             </a>
         </p>
@@ -23,7 +23,7 @@
 </nav>
 
 <div class="container-fluid">
-    <div ng-switch="model.widget.widgetType">
+    <div ng-switch="model.widget.type">
         <div ng-switch-when="HEADER">
             <ng-include src="'views/widget/editors/widget-header-editor.view.client.html'"/>
         </div>
@@ -36,12 +36,12 @@
         <div ng-switch-when="HTML">
             <ng-include src="'views/widget/editors/widget-html-editor.view.client.html'"/>
         </div>
+        <div ng-switch-when="TEXT">
+            <ng-include src="'views/widget/editors/widget-text-editor.view.client.html'"/>
+        </div>
+
     </div>
 </div>
-
-
-
-
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <p class="navbar-text pull-right">

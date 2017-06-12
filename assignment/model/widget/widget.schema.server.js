@@ -2,7 +2,7 @@
  * Created by ch_su_000 on 07/06/2017.
  */
 var mongoose = require("mongoose");
-var WidgetSchema = mongoose.Schema({
+var widgetSchema = mongoose.Schema({
     _page: {type: mongoose.Schema.Types.ObjectId, ref: 'PageModel'},
     type: {type:String, enum:['HEADER','IMAGE','YOUTUBE','HTML','TEXT']},
     name: String,
@@ -20,4 +20,4 @@ var WidgetSchema = mongoose.Schema({
     formatted: Boolean,
     dateCreated: {type: Date, default: Date.now()}
 }, {collection: "assignment.widgets"});
-module.exports = WidgetSchema;
+module.exports = widgetSchema;

@@ -1,4 +1,3 @@
-
 (function(){
     angular
         .module("WebAppMaker")
@@ -13,6 +12,7 @@
         function init() {
             var promise = WidgetService.findWidgetsByPageId(model.pageId);
             promise.then(function (widgets) {
+                console.log(widgets);
                 model.widgets  = widgets;
             },function (error) {
             })
