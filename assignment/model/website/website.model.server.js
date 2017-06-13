@@ -19,7 +19,6 @@ websiteModel.findWebsiteById = findWebsiteById;
 
 function findWebsiteById(websiteId)
 {
-    console.log("jnnnnnnnnnn");
     return websiteModel.findOne({_id:websiteId});
 }
 

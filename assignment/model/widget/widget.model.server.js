@@ -76,7 +76,7 @@ function createWidget(pageId, newWidget){
 }
 
 function sortWidget(pageId, start, end) {
-    console.log(pageId , start ,end);
+
     return pageModel
         .findPageById(pageId)
         .then(function (page) {

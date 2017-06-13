@@ -5,6 +5,10 @@
 var mongoose = require('mongoose');
 var userSchema = require('./user.schema.server');
 var userModel = mongoose.model('UserModel', userSchema);
+module.exports = userModel;
+
+var websiteModel = require('../website/website.model.server');
+
 
 userModel.createUser = createUser;
 userModel.findUserById = findUserById;
@@ -12,7 +16,8 @@ userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
 userModel.deleteUser = deleteUser;
 userModel.updateUser = updateUser;
-module.exports = userModel;
+
+
 
 function createUser(user) {
     return userModel.create(user);
@@ -32,6 +37,7 @@ function updateUser(userId, newUser)
 }
 function deleteUser(userId) {
 
+    console.log(userId);
     return userModel.findById({_id: userId})
         .then(function (user) {
             var websitesOfUser = user.websites;
@@ -51,6 +57,16 @@ function deleteChildren(websitesOfUser, userId) {
                 return err;
             });
     }
+
+
+    return websiteModel.deleteWebsiteChildren(websitesOfUser.shift())
+        .then(function (response) {
+            if(response.result.n == 1 && response.result.ok == 1){
+                return deleteChildren(websitesOfUser, userId);
+            }
+        }, function (err) {
+            return err;
+        });
 }
 
 function addWebsite(userId, websiteId)
