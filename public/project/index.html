@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app ="FoodApp">
+
 <head>
     <meta charset="UTF-8">
-    <title>Project Home Page</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"> </script>
+
+
+    <link href="css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+    <link href="css/textAngular.css" rel="stylesheet"/>
+    <script src="js/textAngular-rangy.min.js"></script>
+    <script src="js/textAngular-sanitize.min.js"></script>
+    <script src="js/textAngular.min.js"></script>
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js" type="text/javascript"></script>
+
+    <script src="views/user/controllers/login.controller.client.js"></script>
+    <script src="views/user/controllers/register.controller.client.js"></script>
+    <script src="views/user/controllers/profile.controller.client.js"></script>
+    <script src="views/user/controllers/other-user.controller.client.js"></script>
+    <script src="views/home/controllers/home.controller.client.js"></script>
+    <script src="views/home/controllers/search.controller.client.js"></script>
+    <script src="views/restaurant/controllers/restaurant.controller.client.js"></script>
+
+
+    <script src="services/user.service.client.js"></script>
+    <script src="services/restaurant.service.client.js"></script>
+
+
+
 </head>
 <body>
-    <h1>Project Home Page</h1>
+    <div ng-view>
+</div>
 </body>
 </html>

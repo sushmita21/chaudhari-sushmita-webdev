@@ -1,0 +1,87 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="profile-header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/home/{{model.user._id}}">
+                    UrbanEat
+                </a>
+                <div ng-show="!model.user.username">
+                    <p class="navbar-text pull-right">
+                        <a href="#/login">Login</a> &nbsp;| &nbsp;<a href="#/register">Register</a>
+                    </p>
+                </div>
+                <div ng-show="model.user.username">
+                    <p class="navbar-text pull-right">
+                        Welcome <a href="#/profile/{{model.user._id}}">{{model.user.username}}</a>
+                        <a href="#/login" class="glyphicon glyphicon-log-out navbar-link"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="alert alert-danger" ng-show="model.alert">
+    {{model.alert}}
+</div>
+
+<div class="container">
+
+    <div class="row category-cards">
+        <div class="col-sm-12 fluid">
+            <div class="fluid card">
+                <div class="row">
+                    <div class="col-sm-3 display-pic">
+
+                        <img ng-if = "model.otherUser.imageUrl" ng-src= "{{model.otherUser.imageUrl}}"
+                             class="img-fluid img-thumbnail" width="100%">
+                        <img ng-if = "!model.otherUser.imageUrl" src= "https://www.gemkonnect.com/sites/default/files/default_images/default-1.png"
+                             class="img-fluid img-thumbnail" width="100%">
+                    </div>
+                    <div class="col-sm-9 text-left">
+                        <h3>{{model.otherUser.fullName}}</h3>
+                        <p>@{{model.otherUser.username}}</p>
+                        <p>{{model.otherUser.about}}</p>
+                        <a ng-click="model.followUser(model.user._id,model.otherUser._id)" class="btn btn-info btn-sm">Follow</a>
+                        &nbsp;&nbsp;<span ng-show="model.otherUser.followed == 'TRUE'" class="glyphicon glyphicon-ok"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-sm-3 category-cards">
+            <div class="fluid card">
+                <h4>{{model.otherUser.username}}'s Followers</h4>
+                <div ng-repeat ="follower in model.followers">
+                    <div class="row">
+                        <div class="fluid card user-review">
+
+                            <h5><b>{{follower.username}}</b></h5>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-8 category-cards">
+            <div class="fluid card">
+                <h4>{{model.otherUser.username}}'s Reviews</h4>
+                <div ng-repeat ="review in model.reviewList">
+                    <div ng-if= "review != null" class="row">
+
+                        <div class="fluid card user-review">
+                            <h5><b>{{review.restaurant}}</b></h5>
+                            <h6>{{review.review}}</h6>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

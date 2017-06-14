@@ -1,0 +1,120 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="profile-header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/home/{{model.user._id}}">
+                    UrbanEat
+                </a>
+                <div ng-show="!model.user.username">
+                    <p class="navbar-text pull-right">
+                        <a href="#/login">Login</a> &nbsp;| &nbsp;<a href="#/register">Register</a>
+                    </p>
+                </div>
+                <div ng-show="model.user.username">
+                    <p class="navbar-text pull-right">
+                        Welcome <a href="#/profile/{{model.user._id}}">{{model.user.username}}</a>
+                        <a href="#/login" class="glyphicon glyphicon-log-out navbar-link"></a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <div class="row content">
+        <div class="col-sm-10 text-left">
+            <br>
+            <div class="row restaurant-image">
+
+                <img ng-if = "model.restaurant.imageUrl" ng-src= "{{model.restaurant.imageUrl}}"
+                     class="img-fluid" height="100%" width="100%">
+                <img ng-if = "!model.restaurant.imageUrl" src= "http://d1qhuz9ahqnrhh.cloudfront.net/wp-content/uploads/2011/11/Grill-Restaurant-Logo-Design-Collection2.jpg"
+                     class="img-fluid" height="100%" width="100%">
+
+            </div>
+            <div class="row">
+                <div class="col-sm-9">
+                    <h3>{{model.restaurant.name}}</h3>
+                    <h5>{{model.restaurant.locality}}</h5>
+
+                </div>
+
+                <div class="col-sm-3">
+                    <h3>Rating <span class="glyphicon glyphicon-star"></span></h3>
+                    <span class="stars">{{model.restaurant.rating}}</span>
+
+                </div>
+                <hr>
+            </div>
+            <br>
+            <div class="row category-cards">
+                <div class="fluid card">
+                    <div class="col-sm-4 ">
+                        <div class="row">
+                            <h4> <u>Contact Number </u></h4>
+                            <h6><p>{{model.restaurant.phone_numbers}}</p></h6>
+
+                        </div>
+                        <div class="row">
+                            <h4> <u>Cuisines Types </u></h4>
+                            <p>{{model.restaurant.cuisine}}</p>
+                        </div>
+                        <div class="row">
+                            <h4><u>Cost</u></h4>
+                            <p>${{model.restaurant.cost}} for 2</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <h4><u>Opening Hours</u></h4>
+                            <p>10 AM - 12 AM</p>
+                        </div>
+                        <div class="row">
+                            <h4><u>Address</u></h4>
+                            <p>{{model.restaurant.address}}</p>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <h4><u>Highlights</u></h4>
+                            <p><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Table booking</p>
+                            <p><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Online delivery</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br><br>
+
+
+
+            <div class="alert alert-danger" ng-show="model.alert">
+                {{model.alert}}
+            </div>
+
+            <div class="fluid card">
+                <div class="row category-cards">
+                    <p> <h4> <u>Review</u> &nbsp;&nbsp;<span class="glyphicon glyphicon-pencil">
+                </span></h4></p>
+                    <div class="row review">
+                        <div class="col-sm-9">
+                            <textarea placeholder="Review {{model.restaurant.name}}..."
+                                      rows="7"
+                                      class="form-control"
+                                      ng-model="model.review">
+                            </textarea>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary btn-block">Publish Review</button>
+                        </div>
+                    </div>
+                </div><br><br>
+            </div>
+        </div>
+    </div>
+</div>

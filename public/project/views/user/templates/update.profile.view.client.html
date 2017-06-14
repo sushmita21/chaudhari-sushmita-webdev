@@ -1,0 +1,61 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="profile-header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/home/{{model.user._id}}">
+                    UrbanEat
+                </a>
+                <p class="navbar-text pull-right">
+                    Welcome <a href="#/profile/{{model.user._id}}">{{model.user.username}}</a>
+                    &nbsp;|&nbsp;
+                    <a href="#/login" class="glyphicon glyphicon-log-out navbar-link"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container ">
+    <div class="login">
+        <h1>Profile Information</h1>
+        <div class="form-group">
+            <label for="firstName">Your Name</label>
+            <input ng-model="model.user.fullName" type="text"
+                   class="form-control"
+                   placeholder="Full Name" id="firstName" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input ng-model="model.user.username" type="text"
+                   class="form-control"
+                   placeholder="Alice" id="username" required/>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input ng-model="model.user.email" type="email"
+                   class="form-control"
+                   placeholder="emailid@gmail.com" id="email" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="about">Bio</label>
+            <input ng-model="model.user.about" type="text" id="about"
+                   class="form-control"
+                   placeholder="Description of Yourself" required/>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for ="upload">Profile Picture</label>
+            <form action="/api/upload1" id="upload" method="post" enctype="multipart/form-data">
+                <input  name="myFile"   type="file" class="form-control"/>
+                <input  name="userId" value="{{model.user._id}}"   style="display: none"/>
+                <button type="submit"   class="btn btn-block btn-primary">Upload Image</button>
+            </form>
+        </div>
+
+        <a ng-click="model.updateUser()" class="btn btn-success btn-block">Update Profile</a>
+
+    </div>
+</div>

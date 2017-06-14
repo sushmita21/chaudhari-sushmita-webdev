@@ -1,0 +1,51 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="profile-header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/home">
+                    UrbanEat
+                </a>
+                <p class="navbar-text pull-right">
+                    Welcome <a href="#/profile/{{model.user._id}}">{{model.user.username}}</a>
+                    &nbsp;|&nbsp;
+                    <a href="#/login" class="glyphicon glyphicon-log-out navbar-link"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="picResturant"></div>
+
+<div class="container">
+    <br>
+
+    <div class="search-tab">
+        <div class="input-group">
+            <input ng-model="model.user.query" type="text" placeholder="Type in to Search reasturants" class="form-control">
+            <span class="input-group-btn">
+                <a class="btn btn-default" type="button" ng-click="model.search(model.user.query)"><span class="glyphicon glyphicon-search"></span></a>
+            </span>
+        </div>
+    </div>
+
+
+    <div class="row steps-guide">
+        <div class="col-sm-4">
+            <img src= "http://www.freeiconspng.com/uploads/map-navigation-pin-point-restaurant-icon--14.png" width="20%"><br>
+            <h4>Find Resturants</h4>
+
+        </div>
+        <div class="col-sm-4">
+            <img src= "https://d30y9cdsu7xlg0.cloudfront.net/png/7067-200.png" width="20%"><br>
+            <h4>Happy Eating</h4>
+        </div>
+        <div class="col-sm-4">
+            <img src= "https://unangan.community.uaf.edu/files/2015/03/write13.png" width="20%"><br>
+            <h4>Review and help others</h4>
+        </div>
+    </div>
+
+
+</div>
+
