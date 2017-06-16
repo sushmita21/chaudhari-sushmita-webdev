@@ -9,6 +9,9 @@
             "findUserByCredentials": findUserByCredentials,
             "findUserById": findUserById,
             "updateUser": updateUser,
+            "login" :login,
+            "logout" :logout,
+            "register":register,
             "deleteUserById": deleteUserById,
             "findUserByUsername": findUserByUsername,
             "createUser": createUser
@@ -16,6 +19,18 @@
         return api;
 
 
+        function register(user) {
+            return $http.post("/api/register", user);
+        }
+
+        function logout() {
+            return $http.post("/api/logout");
+        }
+
+        function login(user) {
+            console.log(user);
+            return $http.post("/api/login", user);
+        }
 
         function findUserById(userId) {
             var url = "/api/user/" + userId;

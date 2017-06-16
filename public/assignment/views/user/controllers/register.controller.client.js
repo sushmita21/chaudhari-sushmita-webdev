@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .controller("RegisterController" , RegisterController);
 
-    function RegisterController($location ,UserService) {
+    function RegisterController($location ,UserService, $rootScope) {
 
         var model = this;
         model.register = register;
@@ -33,10 +33,16 @@
             }, function (notFound) {
                 if(inputUser.password == inputUser.verifypassword)
                 {
-                    var promise = UserService.createUser(inputUser);
-                    promise.then(function (newUser){
-                        $location.url("/user/" + newUser._id);
-                    });
+                    UserService
+                        .register(inputUser)
+                        .then(
+                            function(response) {
+                                var user = response.data;
+                                console.log(user._id);
+                                console.log(user);
+                                $rootScope.currentUser = user;
+                                $location.url("/user/"+user._id);
+                            });
 
                 }
                 else

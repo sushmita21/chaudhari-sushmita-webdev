@@ -8,15 +8,26 @@
         model.userId = userId;
         model.updateUser = updateUser;
         model.deleteUser = deleteUser;
+        model.logout = logout;
 
         function init() {
             var promise = UserService.findUserById(userId);
             promise.then(function (user) {
+                console.log(user);
                 model.user = user;
             })
         }
         init();
 
+        function logout() {
+
+            UserService
+                .logout()
+                .then(function (response) {
+                    $location.url("/");
+                })
+
+        }
         function updateUser(newUser) {
             var promise = UserService.updateUser(userId, newUser);
             promise.then(function (user)

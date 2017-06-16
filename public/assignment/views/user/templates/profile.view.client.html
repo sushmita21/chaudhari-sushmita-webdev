@@ -46,7 +46,7 @@
             <a class="btn btn-primary btn-block" href="#/user/{{model.user._id}}/website">Websites</a>
         </div>
         <div class="form-group">
-            <a class="btn btn-danger  btn-block" href="#/login">Logout</a>
+            <a ng-click = "model.logout()" class="btn btn-danger  btn-block">Logout</a>
         </div>
     </form>
 </div>

@@ -22,7 +22,8 @@
           .when("/user/:uid" , {
               templateUrl: 'views/user/templates/profile.view.client.html',
               controller: 'ProfileController',
-              controllerAs: 'model'
+              controllerAs: 'model',
+              resolve: { loggedin: checkLoggedin }
           })
           .when("/user/:uid/website",{
               templateUrl: 'views/website/templates/website-list.view.client.html',
@@ -79,7 +80,23 @@
               redirectTo: "/login"
           });
 
+       function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
+          console.log("here");
+          var deferred = $q.defer();
+          $http.get('/api/loggedin').success(function(user) {
+              $rootScope.errorMessage = null;
+              if (user !== '0') {
+                  deferred.resolve(user);
+              } else {
+                  console.log("user rejected");
+                  deferred.reject();
+                  $location.url('/');
+              }
+          });
+          return deferred.promise;
+      }
   }
+
 
 
 })();
