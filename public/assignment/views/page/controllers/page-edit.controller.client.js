@@ -40,10 +40,17 @@
 
 
         function updatePage(page) {
-            var promise = PageService.updatePage(model.pageId, page);
-            promise.then(function (response) {
-                $location.url("user/" + model.userId + "/website/" + model.websiteId + "/page");
-            })
+            if(page === undefined ||page.name === undefined || page.name === null || page.name === "")
+            {
+                model.error = "Page Name is required."
+            }
+            else
+            {
+                var promise = PageService.updatePage(model.pageId, page);
+                promise.then(function (response) {
+                    $location.url("user/" + model.userId + "/website/" + model.websiteId + "/page");
+                });
+            }
         }
     }
 

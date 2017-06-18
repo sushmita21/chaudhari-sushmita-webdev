@@ -1,12 +1,18 @@
 var app = require('../../express');
 var userModel = require('../model/user/user.model.server');
+
 var passport      = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-//var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var bcrypt = require("bcrypt-nodejs"); //encrypting password
-//var auth = authorized;
 var session      = require('express-session');
 var cookieParser  = require('cookie-parser');
+
+
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var bcrypt = require("bcrypt-nodejs"); //encrypting password
+
+
+app.use(cookieParser());
 
 //app.use(session({ secret: process.env.SESSION_SECRET }))
 app.use(session({
@@ -15,32 +21,33 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
-/*
- var googleConfig = {
- clientID     : process.env.GOOGLE_CLIENT_ID,
- clientSecret : process.env.GOOGLE_CLIENT_SECRET,
- callbackURL  : process.env.GOOGLE_CALLBACK_URL
- };
- */
 
-/*
- app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
- app.get('/auth/google/callback',
- passport.authenticate('google', {
- successRedirect: '/#/profile',
- failureRedirect: '/#/login'
- }));
- */
+
+
+var facebookConfig = {
+
+    /*clientID: process.env.FACEBOOK_CLIENT_ID,
+     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+     callbackURL:process.env.FACEBOOK_CALLBACK_URL,*/
+
+    clientID: '270025373466478',
+    clientSecret: 'defb3373dd87f127e917adf4c6961dca',
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+};
+var googleConfig = {
+    clientID     : '277462004038-dq088b54tg1akn2msmn0cfqc3j2egtqc.apps.googleusercontent.com',
+    clientSecret : 'jZyZpNz8PofqF46qF8amNB1a',
+    // callbackURL  : process.env.GOOGLE_CALLBACK_URL
+    callbackURL  : "http://localhost:3000/auth/google/callback"
+};
+
 
 app.post  ('/api/login', passport.authenticate('local'), login);
 app.post  ('/api/logout',         logout);
 app.post  ('/api/register',       register);
-//app.post  ('/api/user',     auth, createUser);
 app.get   ('/api/loggedin',       loggedin);
-//app.get   ('/api/user',     auth, findAllUsers);
 
 app.get("/api/user/", findUser);
 app.get('/api/user/:userId', findUserById);
@@ -51,7 +58,29 @@ app.delete('/api/user/:userId',  deleteUser);
 
 
 passport.use(new LocalStrategy(localStrategy));
-//passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+
+
+app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        failureRedirect: '/assignment/#/login'
+    }), function(req, res){
+        var url = '/assignment/#/user/' + req.user._id.toString();
+        res.redirect(url);
+    });
+
+app.get('/auth/facebook',passport.authenticate('facebook',{ scope : 'email'}));
+app.get('/auth/facebook/callback',passport.authenticate('facebook', {
+    failureRedirect: '/assignment/#/login'
+}), function(req, res){
+    console.log("success redirect");
+    var url = '/assignment/#/user/' + req.user._id.toString();
+    console.log(url);
+    res.redirect(url);
+});
+
 
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
@@ -116,7 +145,39 @@ function googleStrategy(token, refreshToken, profile, done) {
                             token: token
                         }
                     };
-                    return userModel.createUser(newGoogleUser);
+                    return userModel
+                        .createUser(newGoogleUser)
+                        .then(function (user) {
+                            return done(null, user);
+                        });
+                }
+            },
+            function(err) {
+                if (err) { return done(err); }
+            }
+        );
+}
+
+function facebookStrategy(token, refreshToken, profile, done) {
+    userModel
+        .findUserByFacebookId(profile.id)
+        .then(
+            function(user) {
+                if(user) {
+                    return done(null, user);
+                } else {
+                    var names = profile.displayName.split(" ");
+                    var newFacebookUser = {
+                        username : names[0],
+                        lastName:  names[1],
+                        firstName: names[0],
+                        email:     profile.emails ? profile.emails[0].value:"",
+                        facebook: {
+                            id:    profile.id,
+                            token: token
+                        }
+                    };
+                    return userModel.createUser(newFacebookUser);
                 }
             },
             function(err) {
@@ -131,6 +192,7 @@ function googleStrategy(token, refreshToken, profile, done) {
                 if (err) { return done(err); }
             }
         );
+
 }
 
 
@@ -210,10 +272,6 @@ function createUser(req, res)
 {
     var newUser = req.body;
 
-    /*var len = users.length;
-     var lastUser = users[len - 1];
-     var newId = parseInt(lastUser._id) + 1;
-     */
     var newUserData =  {
         // _id : newId.toString(),
         username : newUser.username,
@@ -229,9 +287,7 @@ function createUser(req, res)
         }, function (err) {
             res.sendStatus(404).send(err);
         });
-    /*users.push(newUserData);
-     res.json(newUserData);
-     */
+
 }
 
 function findUserById(req, res) {
@@ -243,14 +299,7 @@ function findUserById(req, res) {
         {
             res.sendStatus(500).send(err);
         });
-    /*for (var u in users) {
-     if (users[u]._id === userId) {
-     res.send(users[u]);
-     return;
-     }
-     }
-     res.sendStatus(404);
-     */}
+}
 
 function findUserByUsername(req, res) {
 
@@ -268,14 +317,7 @@ function findUserByUsername(req, res) {
         }, function (err) {
             res.sendStatus(404);
         });
-    /*var user = users.find(function (arrUser) {
-     return arrUser.username == username;
-     });
-     if(user) {
-     res.json(user);
-     } else {
-     res.sendStatus(404);
-     }*/
+
 }
 
 function findUserByCredentials(req, res) {
@@ -296,17 +338,6 @@ function findUserByCredentials(req, res) {
             res.sendStatus(404);
         });
 }
-/*for(var u in users)
- {
- var user = users[u];
- if( user.username === username &&
- user.password === password)
- {
- res.json(user);
- return;
- }
- }
- res.sendStatus(404);*/
 
 
 

@@ -1,6 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class= "container-fluid">
         <div class="col-sm-4 hidden-xs">
+
             <p class="navbar-text pull-left">
                 <a href="#/user/{{model.userId}}/website" class = "navbar-link">
                     <span class="glyphicon glyphicon-chevron-left">
@@ -16,6 +17,7 @@
                 </a>
             </p>
         </div>
+
         <div class="col-sm-8">
             <div class="navbar-text pull-left visible-xs">
                 <a href="#/user/{{model.userId}}/website" class = "navbar-link">
@@ -47,6 +49,10 @@
     </div>
     <div class="col-xs-12 col-sm-8 right-control vertical-line">
         <form>
+            <div ng-show="model.error" class="alert alert-danger" role="alert">
+                {{model.error}}
+            </div>
+
             <div class="form-group">
                 <label for= "websitename" > Website Name </label>
                 <input type = "text" class = "form-control" id = "websitename" placeholder="Website Name" ng-model="model.website.name">

@@ -10,6 +10,11 @@
         }
         init();
         function login(user) {
+            console.log(user);
+            if(user == undefined)
+            {
+                model.error ="Username and Password are mandatory";
+            }
             var username = user.username;
             var password = user.password;
             if(username === null || username === '' || typeof username === 'undefined') {

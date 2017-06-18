@@ -1,6 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class= "row container-fluid">
         <div class="col-sm-4 hidden-xs">
+
             <p class="navbar-text pull-left">
                 <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class = "navbar-link">
                     <span class="glyphicon glyphicon-chevron-left">
@@ -57,7 +58,12 @@
     </div>
 
     <div class="col-xs-12 col-sm-8 right-control vertical-line" >
+
         <form>
+            <div ng-show="model.error" class="alert alert-danger" role="alert">
+                {{model.error}}
+            </div>
+
             <div class="form-group">
                 <label for= "name" > Name </label>
                 <input type = "text"

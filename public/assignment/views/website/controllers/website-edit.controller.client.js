@@ -23,8 +23,6 @@
 
         }
         init();
-
-
         model.updateWebsite = updateWebsite;
         model.deleteWebsite = deleteWebsite;
 
@@ -40,11 +38,17 @@
 
 
         function updateWebsite(website) {
-            var promise = WebsiteService.updateWebsite(model.websiteId, website);
-            promise.then(function(website)
+
+            if(website.name === null || website.name === "")
             {
-                $location.url("user/"+model.userId+"/website");
-            });
+                model.error = "Website name is required."
+            }
+            else {
+                var promise = WebsiteService.updateWebsite(model.websiteId, website);
+                promise.then(function (website) {
+                    $location.url("user/" + model.userId + "/website");
+                });
+            }
 
         }
     }

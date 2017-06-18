@@ -26,10 +26,16 @@
         model.createPage = createPage;
 
         function createPage(newPage) {
-            var promise = PageService.createPage(model.websiteId, newPage);
-            promise.then(function (response) {
-                $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page");
-            })
+            if(newPage === undefined ||newPage.name === undefined || newPage.name === null || newPage.name === "")
+            {
+                model.error = "Page Name is required."
+            }
+            else {
+                var promise = PageService.createPage(model.websiteId, newPage);
+                promise.then(function (response) {
+                    $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page");
+                });
+            }
         }
     }
 

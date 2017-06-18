@@ -19,11 +19,24 @@
         model.createWebsite = createWebsite;
 
         function createWebsite(website) {
-            var promise = WebsiteService.createWebsite(model.userId, website);
-            promise.then(function()
+
+            if(website === undefined)
             {
-                $location.url("/user/" + model.userId + "/website");
-            });
+                model.error = "Website name is required";
+
+            }
+            else if(website.name === undefined || website.name === null || website.name === "" )
+            {
+                model.error = "Website name is required";
+            }
+            else{
+                var promise = WebsiteService.createWebsite(model.userId, website);
+                promise.then(function()
+                {
+                    $location.url("/user/" + model.userId + "/website");
+                });
+            }
+
         }
     }
 

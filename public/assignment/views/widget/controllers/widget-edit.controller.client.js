@@ -24,11 +24,21 @@
         model.deleteWidget = deleteWidget;
 
         function updateWidget(updatedWidget) {
-            var promise = WidgetService.updateWidget(model.widgetId, updatedWidget);
-            promise.then(function(result)
+            console.log("upd wid");
+            console.log(updatedWidget);
+            if(updatedWidget.text === null || updatedWidget.text === "" )
             {
-                $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget");
-            });
+                model.error = "Name is required";
+            }
+            else
+            {
+
+                var promise = WidgetService.updateWidget(model.widgetId, updatedWidget);
+                promise.then(function(result)
+                {
+                    $location.url("/user/" + model.userId + "/website/" + model.websiteId + "/page/" + model.pageId + "/widget");
+                });
+            }
 
         }
         function deleteWidget(wgid) {
