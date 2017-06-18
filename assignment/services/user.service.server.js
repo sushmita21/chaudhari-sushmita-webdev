@@ -19,21 +19,21 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 /*
-var googleConfig = {
-    clientID     : process.env.GOOGLE_CLIENT_ID,
-    clientSecret : process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL  : process.env.GOOGLE_CALLBACK_URL
-};
-*/
+ var googleConfig = {
+ clientID     : process.env.GOOGLE_CLIENT_ID,
+ clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+ callbackURL  : process.env.GOOGLE_CALLBACK_URL
+ };
+ */
 
 /*
-app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-app.get('/auth/google/callback',
-    passport.authenticate('google', {
-        successRedirect: '/#/profile',
-        failureRedirect: '/#/login'
-    }));
-*/
+ app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+ app.get('/auth/google/callback',
+ passport.authenticate('google', {
+ successRedirect: '/#/profile',
+ failureRedirect: '/#/login'
+ }));
+ */
 
 app.post  ('/api/login', passport.authenticate('local'), login);
 app.post  ('/api/logout',         logout);
@@ -64,7 +64,7 @@ function localStrategy(username, password, done) {
         .then(
             function(user) {
                 console.log(user);
-                if(user ){
+                if(user && bcrypt.compareSync(password, user.password)){
                     console.log("passed");
                     return done(null,user);
                 }else{

@@ -80,12 +80,13 @@
               redirectTo: "/login"
           });
 
-       function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
+      function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
           console.log("here");
           var deferred = $q.defer();
           $http.get('/api/loggedin').success(function(user) {
               $rootScope.errorMessage = null;
               if (user !== '0') {
+                  $rootScope.currentUser = user;
                   deferred.resolve(user);
               } else {
                   console.log("user rejected");

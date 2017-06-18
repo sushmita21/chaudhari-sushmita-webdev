@@ -26,10 +26,10 @@ function findUserById(userId) {
     return userModel.findById(userId);
 }
 function findUserByUsername(username) {
-    return userModel.find({"username":username});
+    return userModel.findOne({username : username});
 }
-function findUserByCredentials(username, password) {
-    return userModel.find({username:username, password: password});
+function findUserByCredentials(_username, _password) {
+    return userModel.findOne({username :_username, password  : _password});
 }
 function updateUser(userId, newUser)
 {

@@ -2,7 +2,7 @@
     angular
         .module("WebAppMaker")
         .controller("ProfileController" , ProfileController);
-    function ProfileController($routeParams ,UserService , $location) {
+    function ProfileController($routeParams ,UserService , $location, $rootScope) {
         var model = this;
         var userId = $routeParams['uid'];
         model.userId = userId;
@@ -24,6 +24,7 @@
             UserService
                 .logout()
                 .then(function (response) {
+                    $rootScope.currentUser = null;
                     $location.url("/");
                 })
 

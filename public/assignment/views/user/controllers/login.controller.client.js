@@ -5,6 +5,7 @@
     function LoginController( $location, UserService, $rootScope) {
         var model = this;
         model.login = login;
+        model.error = null;
         function init() {
         }
         init();
@@ -24,7 +25,6 @@
 
                 console.log(user);
                 var promise = UserService.login(user);
-                //findUserByCredentials(username, password);
                 promise.then(function (loginUser) {
                     if(loginUser.status == 401)
                     {
@@ -36,9 +36,9 @@
 
                         var user = loginUser.data;
 
-                        console.log(user[0]);
-                        $rootScope.currentUser = user[0];
-                        $location.url("/user/"+ user[0]._id);
+                        console.log(user);
+                        $rootScope.currentUser = user;
+                        $location.url("/user/"+ user._id);
                     }
                     else
                     {
@@ -46,10 +46,8 @@
                         $location.url = ("/login");
                     }
 
-                }, function (error)
-                {
+                },function (err) {
                     model.error = 'user not found';
-                    $location.url = ("/login");
                 });
             }
 
@@ -58,4 +56,3 @@
     }
 
 })();
-
