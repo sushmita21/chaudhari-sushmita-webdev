@@ -28,19 +28,15 @@ app.use(passport.session());
 
 var facebookConfig = {
 
-    /*clientID: process.env.FACEBOOK_CLIENT_ID,
+     clientID: process.env.FACEBOOK_CLIENT_ID,
      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-     callbackURL:process.env.FACEBOOK_CALLBACK_URL,*/
+     callbackURL:process.env.FACEBOOK_CALLBACK_URL
 
-    clientID: '270025373466478',
-    clientSecret: 'defb3373dd87f127e917adf4c6961dca',
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
 };
 var googleConfig = {
-    clientID     : '277462004038-dq088b54tg1akn2msmn0cfqc3j2egtqc.apps.googleusercontent.com',
-    clientSecret : 'jZyZpNz8PofqF46qF8amNB1a',
-    // callbackURL  : process.env.GOOGLE_CALLBACK_URL
-    callbackURL  : "http://localhost:3000/auth/google/callback"
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL:process.env.GOOGLE_CALLBACK_URL
 };
 
 
