@@ -1,9 +1,9 @@
 /**
- * Created by Himanshu on 4/5/2017.
+ * Created by ch_su_00 on 4/5/2017.
  */
 (function() {
     angular
-        .module("FoodApp")
+        .module("RestaurantReviewApp")
         .factory("UserService", UserService);
 
 
@@ -65,11 +65,15 @@
         }
 
         function checkLogin(){
-            return $http.post("/api/checkLogin");
+            return $http.post("/api/checkLogin")
+                .then();
         }
 
         function checkAdmin() {
-            return $http.post("/api/checkAdmin");
+            return $http.post("/api/checkAdmin")
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function login(username,password){
@@ -78,43 +82,64 @@
                 password : password
             };
 
-            return $http.post("/api/login",user);
+            return $http.post("/api/login",user)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function createUser(user) {
 
-            return $http.post('/api/user',user);
+            return $http.post('/api/user',user)
+                .then(function (response) {
+                    return response.data;
+                });
 
         }
 
         function findUserById(id) {
             var url = '/api/user/' +  id + '/profile';
-            return $http.get(url);
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
 
         }
 
         function findUserByUsername(username){
             var url = '/api/user?username=' + username;
-            return $http.get(url);
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function findUserByCredentials(username,password){
 
             var url  = '/api/user?username=' + username + '&password=' + password;
-            return $http.get(url);
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
 
         }
 
         function updateUser(user){
             var url = "/api/user1/" + user._id;
-            return $http.put(url,user);
+            return $http.put(url,user)
+                .then(function (response) {
+                    return response.data;
+                });
 
         }
 
         function deleteUser(userId){
 
             var url = "/api/user/" + userId;
-            return $http.delete(url);
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
 
 
         }

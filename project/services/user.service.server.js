@@ -1,14 +1,16 @@
-module.exports = function(app,model){
-
   var passport = require('passport');
   var cookieParser = require('cookie-parser');
   var session = require('express-session');
   var LocalStrategy = require('passport-local').Strategy;
   var bcrypt = require("bcrypt-nodejs");
   var multer = require('multer');
+
+  var userModel1 = require('../model/user/user.model.server');
+
   var upload = multer({ dest: __dirname+'/../../public/project/uploads' });
   var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
   var FacebookStrategy = require('passport-facebook').Strategy;
+
   app.use(session({
     secret: 'this is the secret',
     resave: true,
@@ -81,7 +83,7 @@ module.exports = function(app,model){
     }
 
     function facebookStrategy(token, refreshToken, profile, done) {
-       model.userModel1
+       userModel1
             .findUserByFacebookId(profile.id)
             .then(
                 function(user) {
@@ -99,7 +101,7 @@ module.exports = function(app,model){
                                 token: token
                             }
                         };
-                        return model.userModel1.createUser(newFacebookUser);
+                        return userModel1.createUser(newFacebookUser);
                     }
                 },
                 function(err) {
@@ -119,7 +121,7 @@ module.exports = function(app,model){
 
     function googleStrategy(token, refreshToken, profile, done) {
 
-        model.userModel1
+        userModel1
             .findUserByGoogleId(profile.id)
             .then(
                 function(user) {
@@ -137,7 +139,7 @@ module.exports = function(app,model){
                                 token: token
                             }
                         };
-                        return model.userModel1.createUser(newGoogleUser);
+                        return userModel1.createUser(newGoogleUser);
                     }
                 },
                 function(err) {
@@ -157,7 +159,7 @@ module.exports = function(app,model){
 
     function findReviewsForUser(req,res){
       var userId = req.params.userId;
-      model.userModel1.findReviewsByUser(userId)
+      userModel1.findReviewsByUser(userId)
         .then(function(reviews){
           res.json(reviews);
         },
@@ -171,7 +173,7 @@ module.exports = function(app,model){
       var followerId = req.body.followerId;
       var followingId = req.body.followingId;
 
-      model.userModel1.findAllFollowers(followingId)
+      userModel1.findAllFollowers(followingId)
         .then(function(followers){
           for(var f in followers){
             if(followers[f] == followerId){
@@ -179,7 +181,7 @@ module.exports = function(app,model){
               break;
             }
             else{
-              return model.userModel1.followUser(followerId,followingId);
+              return userModel1.followUser(followerId,followingId);
             }
           }
         },
@@ -198,7 +200,7 @@ module.exports = function(app,model){
     function findAllFollowers(req,res){
       var userId = req.params.userId;
 
-      model.userModel1.findAllFollowers(userId)
+      userModel1.findAllFollowers(userId)
         .then(function(followers){
           res.json(followers);
         },
@@ -210,7 +212,7 @@ module.exports = function(app,model){
     function register(req,res){
       var user = req.body;
       user.password = bcrypt.hashSync(user.password);
-      model.userModel1.createUser(user)
+      userModel1.createUser(user)
           .then(function(user){
             if(user){
               req.login(user,function(err){
@@ -250,7 +252,7 @@ module.exports = function(app,model){
 
     function localStrategy(username,password,done){
 
-      model.userModel1.findUserByUsername(username)
+      userModel1.findUserByUsername(username)
             .then(function(user){
               if(user && bcrypt.compareSync(password, user.password)){
                 return done(null,user);
@@ -277,7 +279,7 @@ module.exports = function(app,model){
     }
 
     function deserializeUser(user, done) {
-        model.userModel1
+        userModel1
             .findUserById(user._id)
             .then(
                 function(user){
@@ -306,7 +308,7 @@ module.exports = function(app,model){
       var user,username,password;
       username = req.query.username;
       password = req.query.password;
-      model.userModel1.findUserByCredentials(username,password)
+      userModel1.findUserByCredentials(username,password)
             .then(function(user){
               if(user){
                 if(user.length != 0){
@@ -326,7 +328,7 @@ module.exports = function(app,model){
 
     function findUserById(req,res){
       var userId = req.params.userId;
-      model.userModel1
+      userModel1
           .findUserById(userId)
           .then(function(user){
 
@@ -347,7 +349,7 @@ module.exports = function(app,model){
 
     function createUser(req,res){
       var user = req.body;
-        model.userModel1.createUser(user)
+        userModel1.createUser(user)
           .then(function(newUser){
             res.send(newUser);
           },
@@ -363,9 +365,9 @@ module.exports = function(app,model){
       var userId = req.params.userId;
       
 
-      model.userModel1.updateUser(userId,user)
+      userModel1.updateUser(userId,user)
            .then(function(status){
-            model.userModel1.findUserById(userId)
+            userModel1.findUserById(userId)
               .then(function(user){
 
               res.json(user);
@@ -382,7 +384,7 @@ module.exports = function(app,model){
 
     function deleteUser(req,res){
       var userId = req.params.userId;
-      model.userModel1.deleteUser(userId)
+      userModel1.deleteUser(userId)
             .then(function(status){
               res.send(200);
             },
@@ -424,7 +426,7 @@ module.exports = function(app,model){
         model.userModel1.findUserById(userId)
               .then(function(user){
                 user.imageUrl = "/project/uploads/" + filename;
-                model.userModel1.updateUser(userId,user)
+                userModel1.updateUser(userId,user)
                   .then(function(status){
                     res.redirect("/project/#/user/" + userId);
                   },
@@ -436,6 +438,6 @@ module.exports = function(app,model){
               function(error){
                 res.statusCode(400).send(error);
               });
-    }
+
 
 };

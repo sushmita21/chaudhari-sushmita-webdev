@@ -5,7 +5,7 @@
 (function (){
 
     angular
-        .module("FoodApp")
+        .module("RestaurantReviewApp")
         .controller("HomeController" ,HomeController);
 
 

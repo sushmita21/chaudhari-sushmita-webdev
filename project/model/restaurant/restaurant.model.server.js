@@ -1,4 +1,4 @@
-module.exports = function(){
+
 	var model ={};
 	var mongoose = require('mongoose');
 	var RestaurantSchema = require ("./restaurant.schema.server.js")();
@@ -46,6 +46,6 @@ module.exports = function(){
 		.then(function(restaurant){
 			return restaurant.reviews;
 		});
-	}
+
 
 };

@@ -1,4 +1,4 @@
-module.exports = function(){
+
 
 	var mongoose = require('mongoose');
 
@@ -16,6 +16,4 @@ module.exports = function(){
 
 	},{collection : 'restaurant'});
 
-	return RestaurantSchema;
-
-};
+module.exports = RestaurantSchema;

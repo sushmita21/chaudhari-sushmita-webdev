@@ -1,8 +1,11 @@
-module.exports = function(){
 	var model ={};
 	var mongoose = require('mongoose');
-	var ReviewSchema = require ("./review.schema.server.js")();
+	var ReviewSchema = require ("./review.schema.server");
+    var UserSchema = require ("../user/user.schema.server");
+    var RestaurantSchema = require("../restaurant/restaurant.schema.server");
 	var ReviewModel = mongoose.model("ReviewModel", ReviewSchema);
+	var userModel1 = mongoose.model("UserModel", UserSchema);
+	var restaurantModel = mongoose.model("RestaurantModel", RestaurantSchema);
 
 	var api={
 		setModel :setModel,
@@ -25,7 +28,7 @@ module.exports = function(){
 			.then(function(reviewObject){
 				return model.userModel1.findUserById(userId)
 					.then(function(userObject){
-						return model.restaurantModel.findRestaurantByZomatoId(zomatoId)
+						return restaurantModel.findRestaurantByZomatoId(zomatoId)
 								.then(function(restaurantObj){
 									userObject.reviews.push(reviewObject);
 									userObject.save();
@@ -53,7 +56,7 @@ module.exports = function(){
 
 	function findAllCustomerReviews(userRole){
 
-		return model.userModel1.findUserById(userId)
+		return userModel1.findUserById(userId)
 			.then(function(user){
 				return user.reviews;
 			})
@@ -86,7 +89,7 @@ module.exports = function(){
             _id :reviewId
         })
             .then(function (response) {
-            model.restaurantModel.findRestaurantById(restId)
+            restaurantModel.findRestaurantById(restId)
                 .then(function (restaurantObj) {
                 	var revList = restaurantObj.reviews;
                 	var ind = revList.indexOf(reviewId);
@@ -102,5 +105,5 @@ module.exports = function(){
                     function (error) {
                     });
         })
-    }
+
 };

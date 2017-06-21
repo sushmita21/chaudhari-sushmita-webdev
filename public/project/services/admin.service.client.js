@@ -1,9 +1,9 @@
 /**
- * Created by Himanshu on 4/13/2017.
+ * Created by ch_su_00 on 6/13/2017.
  */
 (function() {
     angular
-        .module("FoodApp")
+        .module("RestaurantReviewApp")
         .factory("AdminService", AdminService);
 
     function AdminService($http){
@@ -18,18 +18,27 @@
 
         function findAllRegisteredUsers(){
             var url = "/api/admin/users";
-            return $http.get(url);
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+
+                });
         }
 
         function findAllCustomerReviews(userId){
             var url = "/api/"+userId+"/reviews";
-            return $http.get(url);
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
 
         function deleteUser(userId){
             var url = "/api/user/" + userId + "/delete";
-            return $http.delete(url);
+            return $http.delete(url).then(function () {
+                return response.data;
+            });
         }
 
     }

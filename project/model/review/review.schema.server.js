@@ -1,4 +1,4 @@
-module.exports = function(){
+
 
 	var mongoose = require('mongoose');
 
@@ -13,6 +13,5 @@ module.exports = function(){
 
 	},{collection : 'review'});
 
-	return ReviewSchema;
+	module.exports =  ReviewSchema;
 
-};

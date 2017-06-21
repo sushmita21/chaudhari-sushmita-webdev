@@ -5,7 +5,7 @@
 (function (){
 
     angular
-        .module("FoodApp")
+        .module("RestaurantReviewApp")
         .controller("SearchController" ,SearchController);
 
     function SearchController($routeParams,$location,UserService){

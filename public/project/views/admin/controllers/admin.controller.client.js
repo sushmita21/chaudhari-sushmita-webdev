@@ -12,41 +12,37 @@
         function init(){
             var promise = UserService.findCurrentUser();
             promise
-                .success(function(user){
+                .then(function(user){
                     if(user != '0'){
                         vm.user = user;
 
                     }
-                })
-                .error(function(){
+                },function(){
 
                 });
 
             var allUsersPromise = AdminService.findAllRegisteredUsers();
             var reviewsList = [];
             allUsersPromise
-                .success(function(users){
+                .then(function(users){
                     if(users){
                         vm.users = users;
                         for(var u in users){
                             AdminService.findAllCustomerReviews(users[u]._id)
-                                .success(function(reviews){
+                                .then(function(reviews){
                                     for(var r in reviews){
                                         RestaurantService.findReviewById(reviews[r]._id)
-                                            .success(function(review){
+                                            .then(function(review){
                                                 reviewsList.push(review);
-                                            })
-                                            .error(function(){
+                                            },function(){
                                             });
                                     }
-                                })
-                                .error(function(){
+                                },function(){
                                 });
                         }
                         vm.reviews = reviewsList;
                     }
-                })
-                .error(function(){
+                },function(){
                 });
 
         }
@@ -59,15 +55,14 @@
             var userDeletePromise = AdminService.deleteUser(userId);
 
             userDeletePromise
-                .success(function(response){
+                .then(function(response){
                     console.log(response);
                     if(response == 'OK'){
                         $location.url("/admin/" + userId);
                     }
                     else{
                     }
-                })
-                .error(function(){
+                },function(){
 
                 });
 
@@ -77,7 +72,7 @@
         vm.logout = logout;
         function logout(){
             UserService.logout()
-                .success(function(){
+                .then(function(){
                     $location.url("/login");
                 });
         }

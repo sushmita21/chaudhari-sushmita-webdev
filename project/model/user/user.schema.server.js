@@ -1,10 +1,5 @@
 
-module.exports = function(){
-
-
 var mongoose = require('mongoose');
-
-
 var UserSchema = mongoose.Schema({
 	fullName : String,
 	username : String,
@@ -33,7 +28,6 @@ var UserSchema = mongoose.Schema({
 	dateCreated : {type : Date, default: Date.now()}
 }, {collection : 'user'});
 
-	return UserSchema;
+module.exports = UserSchema;
 
-};
 

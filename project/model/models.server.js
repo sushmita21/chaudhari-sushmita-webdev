@@ -1,3 +1,4 @@
+/*
 module.exports = function(){
 	var userModel1 = require("./user/user.model.server")();
 	var reviewModel = require("./review/review.model.server")();
@@ -17,4 +18,4 @@ module.exports = function(){
 	return model;
 
 	
-};
+};*/

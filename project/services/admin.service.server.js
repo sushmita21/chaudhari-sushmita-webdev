@@ -1,10 +1,12 @@
-module.exports = function(app,model){
+	var userModel1 = require('../model/user/user.model.server');
+	var reviewModel = require('../model/review/review.model.server');
+
 	app.get("/api/admin/users",findAllRegisteredUsers);
 	app.get("/api/:userId/reviews",findAllCustomerReviews);
 	app.delete("/api/user/:userId/delete",deleteUser);
 
 	function findAllRegisteredUsers(req,res){
-		model.userModel1.findAllRegisteredUsers()
+		userModel1.findAllRegisteredUsers()
 			.then(function(users){
 				res.json(users);
 			},
@@ -16,7 +18,7 @@ module.exports = function(app,model){
 	function findAllCustomerReviews(req,res){
 
 		var userId = req.params.userId;
-		model.reviewModel.findAllCustomerReviews(userId)
+		reviewModel.findAllCustomerReviews(userId)
 			.then(function(reviews){
 				res.json(reviews);
 			},
@@ -28,7 +30,7 @@ module.exports = function(app,model){
 	function deleteUser(req,res){
 
 		var userId = req.params.userId;
-		model.userModel1.deleteUser(userId)
+		userModel1.deleteUser(userId)
 			.then(function(status){
 
 				res.send("OK");
@@ -36,6 +38,6 @@ module.exports = function(app,model){
 			function(error){
 				res.sendStatus(400).send(error);
 			});
-	}
+
 
 };

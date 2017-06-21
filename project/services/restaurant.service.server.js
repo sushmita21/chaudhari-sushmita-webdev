@@ -1,5 +1,3 @@
-module.exports = function(app,model){
-
 	app.post('/api/:userId/:restId/review', createUserReview);
 	app.post('/api/restaurant', createRestaurant);
 	app.get('/api/:restId/reviews', findAllReviews);
@@ -8,7 +6,6 @@ module.exports = function(app,model){
     app.get('/api/zomatoId/:restId',findZomatoIdByRestaurantId);
     app.put('/api/:reviewId/update',updateReview);
     app.delete('/api/:userId/:restId/:revId/review', deleteReview);
-
 
 	function createUserReview(req,res){
 
@@ -111,7 +108,6 @@ module.exports = function(app,model){
                 function(error){
                     res.sendStatus(400).send(error);
                 });
-
     }
 
     function deleteReview(req,res){
@@ -125,6 +121,4 @@ module.exports = function(app,model){
                 function(error){
                     res.sendStatus(400).send(error);
                 });
-    }
-
 };

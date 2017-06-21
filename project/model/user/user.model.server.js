@@ -1,4 +1,4 @@
-module.exports = function(){
+
 	var model =null;
 	var mongoose = require('mongoose');
 	var UserSchema = require("./user.schema.server.js")();
@@ -123,7 +123,7 @@ module.exports = function(){
 		return UserModel1.remove({
 			_id :userId
 		});
-	}
+
 
 
 
