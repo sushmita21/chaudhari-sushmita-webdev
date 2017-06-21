@@ -1,0 +1,60 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="profile-header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/home/{{model.user._id}}">
+                    UrbanEat
+                </a>
+                <p class="navbar-text pull-right">
+                    Welcome <a href="#/profile/{{model.user._id}}">{{model.user.username}}</a>
+                    <span ng-click="model.logout()" class="glyphicon glyphicon-log-out navbar-link"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+
+    <div class="row category-cards">
+        <div class="col-sm-12 fluid">
+            <div class="fluid card">
+                <div class="row">
+                    <div class="col-sm-3 display-pic">
+                        <img src="{{model.user.imageUrl}}" class="img-thumbnail"></img>
+                    </div>
+                    <div class="col-sm-9 text-left">
+                        <h3>{{model.user.fullName}}</h3>
+                        <p>@{{model.user.username}}</p>
+                        <p>{{model.user.about}}</p>
+                        <p>{{model.user.role}}</p>
+                        <a href="#/user/{{model.user._id}}" class="btn btn-primary btn-sm">Update Profile</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-sm-12 category-cards">
+            <div class="fluid card">
+                <h4>App Users </h4>
+                <div ng-repeat ="user in model.users">
+                    <div class="row">
+                        <div class="fluid card user-review">
+                            <a href="#/user/{{user._id}}/profile"><h5><b>{{user.username}}</b></h5></a>
+                            <div class="pull-right">
+                                <span class="glyphicon glyphicon-remove fa-lg" ng-click = "model.deleteUser(user._id)" ></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

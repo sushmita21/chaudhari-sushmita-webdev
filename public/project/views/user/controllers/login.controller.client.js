@@ -1,11 +1,11 @@
 /**
- * Created by Sushmita on 6/5/2017.
+ * Created by ch_su_00 on 6/5/2017.
  */
 
 (function (){
 
     angular
-        .module("FoodApp")
+        .module("RestaurantReviewApp")
         .controller("LoginController" ,LoginController);
 
 
@@ -27,8 +27,7 @@
                             vm.user = user;
                             $location.url("/home/" + user._id);
                         }
-                    },
-                    function(err){
+                    },function(err){
                         vm.alert = "User Not Found";
                     });
             }

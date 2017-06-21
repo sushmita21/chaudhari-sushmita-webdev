@@ -1,17 +1,27 @@
 /**
- * Created by Sushmita on 6/13/2017.
+ * Created by ch_su_00 on 4/13/2017.
  */
 (function() {
     angular
-        .module("FoodApp")
+        .module("RestaurantReviewApp")
         .controller("OtherUserController", OtherUserController);
 
     function OtherUserController($location,$routeParams,UserService,RestaurantService){
         var vm = this;
         var userId = $routeParams.uid;
+        vm.logout = logout;
         function init() {
             var restaurantName;
+            var promise = UserService.findCurrentUser();
+            promise
+                .then(function(user){
+                    if(user != '0'){
+                        vm.user = user;
 
+                    }
+                },function(){
+
+                });
 
             var userPromise = UserService.findUserById(userId);
 
@@ -30,9 +40,25 @@
                     }
                     else{
                     }
-                },
-                function(){
+                },function(){
 
+                });
+
+            var reviewListPromise = UserService.findReviewsForUser(userId);
+            var reviewList = [];
+            reviewListPromise
+                .then(function(reviews){
+                    for(var r in reviews){
+                        RestaurantService.findReviewById(reviews[r])
+                            .then(function(review){
+                                reviewList.push(review);
+                            },function(){
+
+                            });
+                    }
+
+                    vm.reviewList = reviewList;
+                },function(){
                 });
 
             var followersList =[];
@@ -43,10 +69,9 @@
                 .then(function(followers){
                     for (var f in followers){
                         UserService.findUserById(followers[f])
-                            .success(function(follower){
+                            .then(function(follower){
                                 followersList.push(follower);
-                            })
-                            .error(function(){
+                            },function(){
 
                             });
                     }
@@ -59,7 +84,7 @@
                         }
                     }
 
-                }, function(){
+                },function(){
 
                 });
 
@@ -82,8 +107,7 @@
                                 UserService.findUserById(followers[f])
                                     .then(function(follower){
                                         followersList.push(follower);
-                                    },
-                                    function(){
+                                    },function(){
 
                                     });
                             }
@@ -96,20 +120,24 @@
                                 }
                             }
 
-                        },
-                        function(){
+                        },function(){
 
                         });
                     $location.url("/user/" + followingId + "/profile");
 
-                },
-                function(){
+                },function(){
 
                     vm.alert = "Please login to follow user";
 
                 });
         }
 
+        function logout(){
+            UserService.logout()
+                .then(function(){
+                    $location.url("/login");
+                });
+        }
     }
 
 })();

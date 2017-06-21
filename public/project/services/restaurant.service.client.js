@@ -1,5 +1,5 @@
 /**
- * Created by Sushmita on 6/10/2017.
+ * Created by Himanshu on 4/10/2017.
  */
 (function() {
     angular
@@ -10,7 +10,13 @@
 
         var api = {
             "findRestaurantDetailsById" : findRestaurantDetailsById,
+            "createUserReview" : createUserReview,
             "createRestaurant" :createRestaurant,
+            "deleteReview" :deleteReview,
+            "updateReview" :updateReview,
+            "findAllReviews" :findAllReviews,
+            "findReviewById" :findReviewById,
+            "findZomatoIdByRestaurantId" :findZomatoIdByRestaurantId,
             "findRestaurantDetails" : findRestaurantDetails
         };
         return api;
@@ -19,20 +25,26 @@
             var url = 'https://developers.zomato.com/api/v2.1/restaurant?res_id='
                 +restaurantId+'&apikey=cfc7b0033ff1fb172a71b6a82059592d';
 
-            return $http.get(url)
-                .then(function (response) {
-                     return response.data;
-                });
+            return $http.get(url);
         }
 
         function findRestaurantDetails(restaurantId){
             var url = "/api/restaurant/" + restaurantId;
-            return $http.get(url)
-                .then(function (response) {
-                    return response.data;
-                });
+            return $http.get(url);
+        }
+        function createUserReview(userId,restaurantId,review){
+            var url = '/api/'+userId+'/'+restaurantId+'/review';
+            var userReview ={
+                'review' : review,
+            };
+            console.log(url);
+            return $http.post(url,userReview);
         }
 
+        function findZomatoIdByRestaurantId(restaurantId){
+            var url = "/api/zomatoId/" + restaurantId;
+            return $http.get(url);
+        }
 
         function createRestaurant(restaurant){
             var url = "/api/restaurant";
@@ -47,12 +59,30 @@
                 'imageUrl' : restaurant.thumb
             };
 
-            return $http.post(url,restaurantObj)
-                .then(function (response) {
-                    return response.data;
-                });
+            return $http.post(url,restaurantObj);
         }
 
+        function findAllReviews(restaurantId){
+            var url ="/api/"+restaurantId+"/reviews";
+
+            return $http.get(url);
+        }
+
+        function findReviewById(reviewId){
+            var url = "/api/review/" + reviewId;
+            return $http.get(url);
+        }
+
+        function updateReview(reviewId,reviewUpdate){
+            var url = '/api/'+ reviewId +'/update';
+            return $http.put(url,reviewUpdate);
+        }
+
+        function deleteReview(userId,reviewId,restaurantId){
+            console.log(reviewId);
+            var url = '/api/'+userId+'/'+restaurantId+ '/'+reviewId +'/review';
+            return $http.delete(url);
+        }
 
     }
 

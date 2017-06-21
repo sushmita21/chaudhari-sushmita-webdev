@@ -110,16 +110,20 @@
                 <div class="row category-cards">
                     <p> <h4> <u>Review</u> &nbsp;&nbsp;<span class="glyphicon glyphicon-pencil">
                 </span></h4></p>
+
+                    {{model.currentReview}}
+                    {{model.currentReview}}
+                    {{model.currentReview}}
                     <div class="row review">
                         <div class="col-sm-9">
                             <textarea placeholder="Review {{model.restaurant.name}}..."
                                       rows="7"
                                       class="form-control"
-                                      ng-model="model.review">
+                                      ng-model="currentreview">
                             </textarea>
                         </div>
                         <div class="col-sm-3">
-                            <button class="btn btn-primary btn-block" ng-click = "model.createReview(model.user._id,model.restaurant.zomatoId,model.review)">Publish Review</button>
+                            <button class="btn btn-primary btn-block" ng-click = "model.updateReview(currentreview)">Update Review</button>
                         </div>
                     </div>
                 </div><br><br>

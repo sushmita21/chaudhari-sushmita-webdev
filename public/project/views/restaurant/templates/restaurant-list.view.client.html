@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#/home/{{model.user._id}}">
-                    UrbanEat
+                    Find|Eat|Repeat
                 </a>
 
                 <div ng-show="!model.user.username">
@@ -14,7 +14,7 @@
                 <div ng-show="model.user.username">
                     <p class="navbar-text pull-right">
                         Welcome <a href="#/profile/{{model.user._id}}">{{model.user.username}}</a>
-                        <a href="#/login" class="glyphicon glyphicon-log-out navbar-link"></a>
+                        <span ng-click="model.logout()" class="glyphicon glyphicon-log-out navbar-link"></span>
                     </p>
                 </div>
 

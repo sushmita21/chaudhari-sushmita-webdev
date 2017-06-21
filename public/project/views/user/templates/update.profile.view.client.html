@@ -3,12 +3,13 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#/home/{{model.user._id}}">
-                    UrbanEat
+                   UrbanEat
                 </a>
                 <p class="navbar-text pull-right">
                     Welcome <a href="#/profile/{{model.user._id}}">{{model.user.username}}</a>
                     &nbsp;|&nbsp;
-                    <a href="#/login" class="glyphicon glyphicon-log-out navbar-link"></a>
+                    <span ng-click="model.logout()" class="glyphicon glyphicon-log-out navbar-link"></span>&nbsp;&nbsp;
+                    <a ng-show="model.user.role == 'ADMIN'" href="#/admin/{{model.user._id}}"> | Admin Page</a>
                 </p>
             </div>
         </div>
