@@ -66,7 +66,6 @@
                 <h4>My Reviews</h4>
                 <div ng-repeat ="review in model.reviewList">
                     <div ng-if= "review != null" class="row">
-                        {{review}}
                         <div class="fluid card user-review">
                             <div class="pull-right">
                                 <span class="glyphicon glyphicon-pencil" ng-click = "model.updateReview(model.user._id,review._id,review._restaurant)" ></span>

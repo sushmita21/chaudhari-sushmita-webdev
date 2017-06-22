@@ -1,30 +1,21 @@
-
-	var model =null;
 	var mongoose = require('mongoose');
-	var UserSchema = require("./user.schema.server.js")();
+	var UserSchema = require("./user.schema.server.js");
 	var UserModel1  =  mongoose.model("UserModel1",UserSchema);
+	module.exports = UserModel1;
 
-	var api = {
-		createUser : createUser,
-		findUserById : findUserById,
-		findUserByFacebookId :findUserByFacebookId,
-        findUserByGoogleId :findUserByGoogleId,
-		updateUser : updateUser,
-		findUserByCredentials : findUserByCredentials,
-		findUserByUsername : findUserByUsername,
-		findWebsitesForUser : findWebsitesForUser,
-		deleteUser :deleteUser,
-		findReviewsByUser :findReviewsByUser,
-		followUser : followUser,
-		findAllFollowers :findAllFollowers,
-		findAllRegisteredUsers : findAllRegisteredUsers,
-		setModel :setModel
-};
-	return api;
-
-	function setModel(_model){
-		model = _model;
-	}
+    UserModel1.createUser = createUser;
+    UserModel1.findUserById = findUserById;
+    UserModel1.findUserByFacebookId = findUserByFacebookId;
+    UserModel1.findUserByGoogleId = findUserByGoogleId;
+    UserModel1.updateUser = updateUser;
+    UserModel1.findUserByCredentials = findUserByCredentials;
+    UserModel1.findUserByUsername = findUserByUsername;
+    UserModel1.findWebsitesForUser = findWebsitesForUser;
+    UserModel1.deleteUser = deleteUser;
+    UserModel1.findReviewsByUser = findReviewsByUser;
+    UserModel1.followUser = followUser;
+    UserModel1.findAllFollowers = findAllFollowers;
+    UserModel1.findAllRegisteredUsers = findAllRegisteredUsers;
 
 	function followUser(followerId,followingId){
 		return UserModel1.findById(followingId)
@@ -123,8 +114,5 @@
 		return UserModel1.remove({
 			_id :userId
 		});
-
-
-
 
 };

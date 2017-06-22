@@ -1,32 +1,24 @@
-	var model ={};
 	var mongoose = require('mongoose');
 	var ReviewSchema = require ("./review.schema.server");
-    var UserSchema = require ("../user/user.schema.server");
-    var RestaurantSchema = require("../restaurant/restaurant.schema.server");
 	var ReviewModel = mongoose.model("ReviewModel", ReviewSchema);
-	var userModel1 = mongoose.model("UserModel", UserSchema);
-	var restaurantModel = mongoose.model("RestaurantModel", RestaurantSchema);
+	module.exports = ReviewModel;
+	var userModel1 = require("../user/user.model.server");
+	var restaurantModel = require("../restaurant/restaurant.model.server");
 
-	var api={
-		setModel :setModel,
-		createUserReview : createUserReview,
-        deleteReview : deleteReview,
-        updateReview : updateReview,
-		findReviewsByRestaurant : findReviewsByRestaurant,
-		findReviewById :findReviewById,
-		findAllCustomerReviews : findAllCustomerReviews
-	};
-	return api;
 
-	function setModel(_model){
-		model = _model;
-	}
+    ReviewModel.createUserReview = createUserReview;
+    ReviewModel.deleteReview = deleteReview;
+    ReviewModel.updateReview = updateReview;
+    ReviewModel.findReviewsByRestaurant = findReviewsByRestaurant;
+    ReviewModel.findReviewById = findReviewById;
+    ReviewModel.findAllCustomerReviews = findAllCustomerReviews
+
 
 
 	function createUserReview(userId,zomatoId,review){
 		return ReviewModel.create(review)
 			.then(function(reviewObject){
-				return model.userModel1.findUserById(userId)
+				return userModel1.findUserById(userId)
 					.then(function(userObject){
 						return restaurantModel.findRestaurantByZomatoId(zomatoId)
 								.then(function(restaurantObj){

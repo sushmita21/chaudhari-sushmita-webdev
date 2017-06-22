@@ -81,12 +81,12 @@
                 .then(function(reviews){
                     for(var r in reviews){
                         RestaurantService.findReviewById(reviews[r])
-                            .success(function(review){
+                            .then(function(review){
                                 reviewList.push(review);
                                 $scope.loadedData = false;
+                            },function (err) {
+                                
                             })
-                            .error(function(){
-                            });
                     }
                     vm.reviewList = reviewList;
 

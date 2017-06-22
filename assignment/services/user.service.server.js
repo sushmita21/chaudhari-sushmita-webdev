@@ -28,13 +28,13 @@ app.use(passport.session());
 
 var facebookConfig = {
 
-     clientID: process.env.FACEBOOK_CLIENT_ID,
+     clientID: process.env.FACEBOOK_CLIENT_ID || "123",
      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
      callbackURL:process.env.FACEBOOK_CALLBACK_URL
 
 };
 var googleConfig = {
-    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientID: process.env.GOOGLE_CLIENT_ID || "123",
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL:process.env.GOOGLE_CALLBACK_URL
 };

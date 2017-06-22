@@ -21,6 +21,7 @@
 
                 UserService.register(user)
                     .then(function(user){
+                        console.log(user);
                         $rootScope.currentUser = user;
                         $location.url("/home/"+ user._id);
                     });

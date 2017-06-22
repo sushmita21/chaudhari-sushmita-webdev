@@ -32,10 +32,10 @@
                     console.log(reviews);
                     for(var r in reviews){
                         RestaurantService.findReviewById(reviews[r])
-                            .success(function(review){
+                            .then(function(review){
                                 reviewList.push(review);
-                            })
-                            .error(function(){
+                            },function (err) {
+                                
                             });
                     }
 
@@ -51,11 +51,10 @@
                 .then(function(followers){
                     for (var f in followers){
                         UserService.findUserById(followers[f])
-                            .success(function(follower){
+                            .then(function(follower){
                                 followersList.push(follower);
-                            })
-                            .error(function(){
-
+                            },function (err) {
+                                
                             });
                     }
                     vm.followers = followersList;

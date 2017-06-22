@@ -20,17 +20,13 @@
             var promise = UserService.findCurrentUser();
 
             promise
-                .success(function(user){
+                .then(function(user){
                     if(user != '0'){
-                        //console.log(user);
                         vm.user = user;
-
-
                     }
-                })
-                .error(function(){
+                },function (err) {
 
-                });
+                })
         }
         init();
 
@@ -40,8 +36,10 @@
 
         function logout(){
             UserService.logout()
-                .success(function(){
+                .then(function(){
                     $location.url("/login");
+                },function (err) {
+                    
                 });
         }
     }

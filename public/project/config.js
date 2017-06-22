@@ -108,7 +108,7 @@
 
             UserService
                 .checkLogin()
-                .success(
+                .then(
                     function (user) {
 
                         if(user != '0') {
@@ -118,6 +118,8 @@
                             deferred.reject();
                             $location.url("/login");
                         }
+                    },function (err) {
+
                     }
                 );
 

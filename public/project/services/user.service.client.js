@@ -29,13 +29,19 @@
         function findRestaurantBySearchQuery(query){
             var url = 'https://developers.zomato.com/api/v2.1/search?q='
                 +query+'&apikey=cfc7b0033ff1fb172a71b6a82059592d';
-            return $http.get(url);
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
 
         }
 
         function findAllFollowers(userId){
             var url = "/api/user/" + userId + "/followers";
-            return $http.get(url);
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function followUser(followerId,followingId){
@@ -45,28 +51,45 @@
                 'followingId' : followingId
             };
 
-            return $http.post(url,followObj);
+            return $http.post(url,followObj)
+                .then(function (response) {
+                    return response.data;
+                });
         }
         function findReviewsForUser(userId){
             var url = "/api/review/user/" + userId;
-            return $http.get(url);
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function findCurrentUser(){
-            return $http.get("/api/user1");
+            return $http.get("/api/user1")
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function register(user){
-            return $http.post("/api/register",user);
+            return $http.post("/api/register",user)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function logout(){
-            return $http.post("/api/logout");
+            return $http.post("/api/logout")
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function checkLogin(){
             return $http.post("/api/checkLogin")
-                .then();
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function checkAdmin() {

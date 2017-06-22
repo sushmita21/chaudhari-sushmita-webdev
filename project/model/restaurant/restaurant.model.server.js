@@ -1,22 +1,15 @@
 
-	var model ={};
 	var mongoose = require('mongoose');
-	var RestaurantSchema = require ("./restaurant.schema.server.js")();
+	var RestaurantSchema = require ("./restaurant.schema.server.js");
 	var RestaurantModel = mongoose.model("RestaurantModel", RestaurantSchema);
+    module.exports = RestaurantModel;
 
-	var api={
-		setModel :setModel,
-		findRestaurantById : findRestaurantById,
-		createRestaurant :createRestaurant,
-		findRestaurantByZomatoId : findRestaurantByZomatoId,
-        findZomatoIdByRestaurantId :findZomatoIdByRestaurantId,
-		findReviewsForRestaurant : findReviewsForRestaurant
-	};
-	return api;
+    RestaurantModel.findRestaurantById = findRestaurantById;
+    RestaurantModel.createRestaurant = createRestaurant;
+    RestaurantModel.findRestaurantByZomatoId = findRestaurantByZomatoId;
+    RestaurantModel.findZomatoIdByRestaurantId =findZomatoIdByRestaurantId;
+    RestaurantModel.findReviewsForRestaurant = findReviewsForRestaurant;
 
-	function setModel(_model){
-		model = _model;
-	}
 
 	function findRestaurantById(restaurantId){
 		return RestaurantModel.findById(restaurantId);
