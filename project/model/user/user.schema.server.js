@@ -21,7 +21,7 @@ var UserSchema = mongoose.Schema({
 
     },
 	query:String,
-	role:{type:String, default:'CUSTOMER',enum: ['ADMIN','CUSTOMER']},
+	role:{type:String, default:'CUSTOMER',enum: ['ADMIN','CUSTOMER' ,'RESTAUARNTOWNER']},
 	reviews : [{type : mongoose.Schema.Types.ObjectId, ref:'ReviewModel'}],
 	followers : [{type : mongoose.Schema.Types.ObjectId, ref:'UserModel1'}],
 	following : [{type : mongoose.Schema.Types.ObjectId, ref:'UserModel1'}],

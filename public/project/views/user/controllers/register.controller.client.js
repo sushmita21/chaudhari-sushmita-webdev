@@ -15,6 +15,7 @@
         vm.register = register;
 
         function register(user){
+            console.log(user);
             if( vm.user.password == vm.user.verifyPassword){
 
                 user.imageUrl = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSp5VUcMJyRB9rOmmPyb8laq0gbbA5M_1rS5p-6IP5imXUQAUGNXtn5DIE";

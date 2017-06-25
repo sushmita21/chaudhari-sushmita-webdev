@@ -11,6 +11,7 @@
 		dateCreated : {type : Date, default: Date.now()},
 		address : {type:String},
 		cost : {type:String},
+		offers : {type:[String]},
 		rating :{type:Number},
 		imageUrl : {type:String}
 

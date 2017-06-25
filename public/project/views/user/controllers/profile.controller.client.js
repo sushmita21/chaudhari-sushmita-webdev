@@ -14,12 +14,14 @@
         var userId = $routeParams.uid;
 
         function init() {
+            console.log("userId")
+            console.log(userId);
             var promise = UserService.findCurrentUser();
             promise
                 .then(function(user){
                     if(user != '0'){
                         vm.user = user;
-
+                        console.log("current user found");
                     }
                 },function(){
 

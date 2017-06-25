@@ -67,6 +67,11 @@
                 controller : "RestaurantController",
                 controllerAs : "model"
             })
+            .when('/restaurant/:rid/offers',{
+                templateUrl : "views/restaurant/templates/offers.view.client.html",
+                controller : "RestaurantController",
+                controllerAs : "model"
+            })
 
             .when('/home/:uid',{
                 templateUrl : "views/home/templates/home1.view.client.html",
@@ -82,6 +87,9 @@
                 templateUrl : "views/user/templates/other-user.profile.view.client.html",
                 controller : "OtherUserController",
                 controllerAs : "model",
+                resolve : {
+                    checkLogin: checkLogin
+                }
 
             })
             .when('/user/:uid',{

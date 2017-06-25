@@ -81,12 +81,12 @@
             _id :reviewId
         })
             .then(function (response) {
-            restaurantModel.findRestaurantById(restId)
+             restaurantModel.findRestaurantById(restId)
                 .then(function (restaurantObj) {
                 	var revList = restaurantObj.reviews;
                 	var ind = revList.indexOf(reviewId);
-                	revList.slice(ind,1);
-                        return model.restaurantModel.update({
+                	revList.splice(ind,1);
+                        return restaurantModel.update({
                                 _id: restId
                             },
                             {
@@ -98,4 +98,4 @@
                     });
         })
 
-};
+}

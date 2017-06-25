@@ -12,7 +12,11 @@
         console.log("riddd");
         console.log(restaurantId);
         vm.createReview = createReviewByUser;
+        vm.rateRestaurant = rateRestaurant;
+        vm.rateRestaurant1 = rateRestaurant1;
+        vm.createOffer = createOfferByUser;
         vm.updateReview = updateReview;
+        vm.deleteOffer = deleteOffer;
         var restZomatoId = $routeParams.rid;
         var reviewId = $routeParams.revid;
         vm.logout = logout;
@@ -94,6 +98,21 @@
                 });
 
 
+            var offerList = [];
+
+            RestaurantService.findAllOffers(restZomatoId)
+                .then(function(offers){
+                    console.log(offers);
+                    for(var o in offers){
+                            offerList.push(offers[o]);
+                            $scope.loadedData = false;
+                        }
+                    vm.offerList = offerList;
+
+                },function(){
+                });
+
+
         }
         init();
 
@@ -109,6 +128,25 @@
                     .then(function(response){
 
                         $location.url("/restaurant/" + restaurantId+ "/reviews");
+                    },function(){
+
+                    });
+            }
+
+        }
+
+
+        function createOfferByUser(userId,restaurantId,offer){
+
+            if(!userId){
+                vm.alert = "Please Login to Review";
+            }
+            else{
+
+                RestaurantService.createUserOffer(userId,restaurantId,offer)
+                    .then(function(response){
+
+                        $location.url("/restaurant/" + restaurantId+ "/offers");
                     },function(){
 
                     });
@@ -133,6 +171,75 @@
                 });
         }
 
+
+        function rateRestaurant(stars,userId,restaurantId){
+
+
+            if(!userId){
+                vm.info = "Please Login to Rate";
+            }
+            else {
+                RestaurantService.rateRestaurant(restaurantId, stars)
+                    .then(function (response) {
+                        RestaurantService.findRestaurantDetails(restaurantId)
+                            .then(function (restaurant) {
+                                vm.restaurant = restaurant;
+                            });
+                        $location.url("/restaurant/" + restaurantId);
+                    }, function (err) {
+
+                    })
+            }
+
+        }
+
+
+        function rateRestaurant1(stars,userId,restaurantId){
+
+            console.log("hereewwewe");
+            if(!userId){
+                vm.info = "Please Login to Rate";
+            }
+            else {
+                RestaurantService.rateRestaurant(restaurantId, stars)
+                    .then(function (response) {
+                        RestaurantService.findRestaurantDetails(restaurantId)
+                            .then(function (restaurant) {
+                                vm.restaurant = restaurant;
+                            });
+                        console.log($routeParams.revid);
+                        $location.url("/restaurant/" + restaurantId+ '/' + $routeParams.revid+ "/update");
+
+                    }, function (err) {
+
+                    })
+            }
+
+        }
+
+
+        function deleteOffer(restaurantId, offer){
+
+            console.log(restaurantId);
+            console.log(offer);
+            RestaurantService.deleteOffer(restaurantId ,offer)
+                .then(function(response){
+                    console.log("deleted");
+                    var offerList = [];
+                    RestaurantService.findAllOffers(restaurantId)
+                        .then(function(offers){
+                            for(var o in offers){
+                                offerList.push(offers[o]);
+                                $scope.loadedData = false;
+                            }
+                            vm.offerList = offerList;
+
+                        },function(){
+                        });
+                    $location.url("/restaurant/" + restaurantId+ "/offers");
+                },function(){
+                });
+        }
 
         function logout(){
             UserService.logout()

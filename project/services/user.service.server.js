@@ -41,15 +41,20 @@ app.get   ('/auth/facebook', passport.authenticate('facebook', { scope : 'email'
 
 app.get('/auth/facebook/callback',
 passport.authenticate('facebook', {
-    successRedirect: '/project/#/user',
     failureRedirect: '/project/#/login'
-}));
+}), function(req, res){
+        var url = '/project/#/user/' + req.user._id.toString();
+        res.redirect(url);
+    });
 
 app.get('/auth/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/project/#/user',
         failureRedirect: '/project/#/login'
-    }));
+    }
+    ), function(req, res){
+        var url = '/project/#/user/' + req.user._id.toString();
+        res.redirect(url);
+    });
 
 
 var facebookConfig = {
@@ -424,7 +429,7 @@ function uploadImage(req, res) {
     var mimetype      = myFile.mimetype;
 
 
-    model.userModel1.findUserById(userId)
+    userModel1.findUserById(userId)
           .then(function(user){
             user.imageUrl = "/project/uploads/" + filename;
             userModel1.updateUser(userId,user)

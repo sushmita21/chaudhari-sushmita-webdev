@@ -51,6 +51,10 @@
 	}
 
 	function createUser(user){
+		console.log(user);
+		if(user.RestaurantOwner == true){
+			user.role = "RESTAUARNTOWNER";
+		}
 		return UserModel1.create(user);
 	}
 

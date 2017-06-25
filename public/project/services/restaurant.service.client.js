@@ -11,10 +11,14 @@
         var api = {
             "findRestaurantDetailsById" : findRestaurantDetailsById,
             "createUserReview" : createUserReview,
+            "createUserOffer" : createUserOffer,
             "createRestaurant" :createRestaurant,
             "deleteReview" :deleteReview,
+            "deleteOffer" :deleteOffer,
+            "rateRestaurant" :rateRestaurant,
             "updateReview" :updateReview,
             "findAllReviews" :findAllReviews,
+            "findAllOffers" :findAllOffers,
             "findReviewById" :findReviewById,
             "findZomatoIdByRestaurantId" :findZomatoIdByRestaurantId,
             "findRestaurantDetails" : findRestaurantDetails
@@ -46,6 +50,31 @@
                 .then(function (response) {
                     return response.data;
             });
+        }
+
+
+        function rateRestaurant(restaurantId,stars){
+            console.log("printing stars");
+            console.log(stars);
+            var dummy = {"name" : "xyz"};
+            var url = '/api/'+ restaurantId +'/rate?rate='+stars;
+            return $http.put(url,dummy)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function createUserOffer(userId,restaurantId,offer){
+            console.log("in client offer");
+            var url = '/api/'+userId+'/'+restaurantId+'/offer';
+            var userOffer ={
+                'offer' : offer,
+            };
+
+            return $http.post(url,userOffer)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function findZomatoIdByRestaurantId(restaurantId){
@@ -84,6 +113,16 @@
                 });
         }
 
+
+        function findAllOffers(restaurantId){
+            var url ="/api/"+restaurantId+"/offers";
+
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
         function findReviewById(reviewId){
             var url = "/api/review/" + reviewId;
             return $http.get(url)
@@ -105,6 +144,15 @@
             var url = '/api/'+userId+'/'+restaurantId+ '/'+reviewId +'/review';
             return $http.delete(url)
                 .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function deleteOffer(restaurantId,offer){
+            var url = '/api/'+restaurantId+'/offer/'+offer;
+            return $http.delete(url)
+                .then(function (response) {
+                    console.log("deleted successfully")
                     return response.data;
                 });
         }

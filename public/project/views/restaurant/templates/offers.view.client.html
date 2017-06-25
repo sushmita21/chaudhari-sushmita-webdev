@@ -1,0 +1,86 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="profile-header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/home/{{model.user._id}}">
+                    UrbanEat
+                </a>
+
+                <div ng-show="!model.user.username">
+                    <p class="navbar-text pull-right">
+                        <a href="#/login">Login</a> &nbsp;| &nbsp;<a href="#/register">Register</a>
+                    </p>
+                </div>
+                <div ng-show="model.user.username">
+                    <p class="navbar-text pull-right">
+                        Welcome <a href="#/profile/{{model.user._id}}">{{model.user.username}}</a>
+                        <span ng-click="model.logout()" class="glyphicon glyphicon-log-out navbar-link"></span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container">
+    <div class="row content">
+
+        <div class="col-sm-10 text-left">
+            <br>
+            <div class="row restaurant-image">
+                <img src="{{model.restaurant.imageUrl}}" class="img-rounded" height="100%" width="100%">
+            </div>
+            <div class="row">
+                <div class="col-sm-7">
+                    <h3>{{model.restaurant.name}}</h3>
+                    <h5>{{model.restaurant.locality}}</h5>
+                </div>
+
+
+                <div class="col-sm-3">
+                    <h3>Rating <span class="glyphicon glyphicon-star"></span></h3>
+                    <span class="stars">{{model.restaurant.rating}}</span>
+
+                </div>
+
+                <hr>
+            </div>
+            <br>
+            <div class="row">
+                <div class="fluid card">
+                    <div class="col-md-10">
+                        <a class="btn btn-success btn-lg" href="#/restaurant/{{model.restaurant.zomatoId}}">Details</a>
+                    </div>
+
+                </div>
+            </div>
+            <br><br>
+            <div class="row category-cards">
+                <div class="fluid card">
+                    <p><h4>Offers</h4></p><hr>
+                    <div ng-repeat ="offer in model.offerList">
+                        <div ng-if= "offer != null" class="row">
+                            <div col="col-sm-2">
+
+                            </div>
+                            <hr>
+                            <div class="col-sm-8">
+                                <p>{{offer}}</p>
+                            </div>
+
+                            <div ng-show="model.user.role == 'RESTAUARNTOWNER'" class="pull-right">
+                                <span class="glyphicon glyphicon-trash"
+                                      ng-click = "model.deleteOffer(model.restaurant.zomatoId,offer)" ></span>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

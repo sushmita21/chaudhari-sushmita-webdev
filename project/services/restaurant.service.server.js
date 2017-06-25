@@ -1,12 +1,16 @@
 var app = require('../../express');
 app.post('/api/:userId/:restId/review', createUserReview);
+app.post('/api/:userId/:restId/offer', createUserOffer);
 app.post('/api/restaurant', createRestaurant);
 app.get('/api/:restId/reviews', findAllReviews);
+app.get('/api/:restId/offers', findAllOffers);
 app.get('/api/review/:reviewId',findReviewById);
 app.get('/api/restaurant/:restId',findRestaurantDetails);
 app.get('/api/zomatoId/:restId',findZomatoIdByRestaurantId);
 app.put('/api/:reviewId/update',updateReview);
+app.put("/api/:restId/rate", rateRestaurant);
 app.delete('/api/:userId/:restId/:revId/review', deleteReview);
+app.delete('/api/:restId/offer/:offer', deleteOffer);
 
 var reviewModel = require("../model/review/review.model.server");
 var restaurantModel = require("../model/restaurant/restaurant.model.server");
@@ -25,6 +29,24 @@ function createUserReview(req,res){
 		function(error){
 			res.sendStatus(400).send(error);
 		});
+}
+
+
+function createUserOffer(req,res){
+
+	console.log("hereeee");
+    var offer = req.body;
+    var userId = req.params.userId;
+    var restZomatoId = req.params.restId;
+
+    restaurantModel.createUserOffer(userId,restZomatoId,offer)
+        .then(function(offer){
+                res.json(offer);
+
+            },
+            function(error){
+                res.sendStatus(400).send(error);
+            });
 }
 
 function createRestaurant(req,res){
@@ -87,6 +109,19 @@ function findAllReviews(req,res){
 		});
 }
 
+
+function findAllOffers(req,res){
+    var zomatoId = req.params.restId;
+    var offerList = [];
+    restaurantModel.findOffersForRestaurant(zomatoId)
+        .then(function(offers){
+                res.json(offers);
+            },
+            function(error){
+                res.sendStatus(400).send(error);
+            });
+}
+
 function findReviewById(req,res){
 	var reviewId = req.params.reviewId;
 
@@ -114,6 +149,24 @@ function updateReview(req,res){
 			});
 }
 
+
+function rateRestaurant(req,res){
+
+console.log("reached");
+    var restId = req.params.restId;
+    console.log(restId);
+    var stars = Number(req.query.rate);
+
+
+    restaurantModel.rateRestaurant(restId,stars)
+        .then(function(status){
+                res.send('Rate');
+            },
+            function(error){
+                res.sendStatus(400).send(error);
+            });
+}
+
 function deleteReview(req,res){
 	var reviewId = req.params.revId;
 	var restId = req.params.restId;
@@ -125,4 +178,18 @@ function deleteReview(req,res){
 			function(error){
 				res.sendStatus(400).send(error);
 			});
-};
+}
+
+function deleteOffer(req,res){
+
+    var zomatoId = req.params.restId;
+    var offer = req.params.offer;
+	console.log(offer);
+    restaurantModel.deleteOffer(zomatoId,offer)
+        .then(function(status){
+                res.send(200);
+            },
+            function(error){
+                res.sendStatus(400).send(error);
+            });
+}

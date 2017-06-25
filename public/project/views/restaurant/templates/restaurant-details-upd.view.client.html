@@ -43,10 +43,36 @@
                 </div>
 
                 <div class="col-sm-3">
-                    <h3>Rating <span class="glyphicon glyphicon-star"></span></h3>
-                    <span class="stars">{{model.restaurant.rating}}</span>
+                    <h3> Rating {{model.restaurant.rating}} </span></h3>
+                    <br>
+                    <div ng-hide ="model.user.role == 'RESTAUARNTOWNER'" class="rating" ng-disabled="model.stopRating">
+                        <input type="radio" id="star5" name="rating" value="5"
+                               ng-value="5" ng-model="model.stars"
+                               ng-click="model.rateRestaurant1(model.stars,model.user._id,model.restaurant.zomatoId)"/>
+                        <label class = "full" for="star5" title="5 stars"></label>
 
+                        <input type="radio" id="star4" name="rating" value="4"
+                               ng-value="4" ng-model="model.stars"
+                               ng-click="model.rateRestaurant1(model.stars,model.user._id,model.restaurant.zomatoId)"/>
+                        <label class = "full" for="star4" title="4 stars"></label>
+
+                        <input type="radio" id="star3" name="rating" value="3"
+                               ng-value="3" ng-model="model.stars"
+                               ng-click="model.rateRestaurant1(model.stars,model.user._id,model.restaurant.zomatoId)"/>
+                        <label class = "full" for="star3" title="3 stars"></label>
+
+                        <input type="radio" id="star2" name="rating" value="2"
+                               ng-value="2" ng-model="model.stars"
+                               ng-click="model.rateRestaurant1(model.stars,model.user._id,model.restaurant.zomatoId)"/>
+                        <label class = "full" for="star2" title="2 stars"></label>
+
+                        <input type="radio" id="star1" name="rating" value="1"
+                               ng-value="1" ng-model="model.stars"
+                               ng-click="model.rateRestaurant1(model.stars,model.user._id,model.restaurant.zomatoId)"/>
+                        <label class = "full" for="star1" title="1 star"></label>
+                    </div>
                 </div>
+
                 <hr>
             </div>
 
@@ -106,7 +132,7 @@
                 {{model.alert}}
             </div>
 
-            <div class="fluid card">
+            <div ng-hide="model.user.role == 'RESTAUARNTOWNER'" class="fluid card">
                 <div class="row category-cards">
                     <p> <h4> <u>Review</u> &nbsp;&nbsp;<span class="glyphicon glyphicon-pencil">
                 </span></h4></p>
