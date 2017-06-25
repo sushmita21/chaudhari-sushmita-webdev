@@ -65,8 +65,8 @@ var facebookConfig = {
 
 
 var googleConfig = {
-    clientID        : '110146154764-2ln4chaa9qh638qcivb8q52ei3c8g791.apps.googleusercontent.com',
-    clientSecret    : '6z6C7UC56IRB-rI46lBauRcF',
+    clientID        : process.env.GOOGLE_CLIENT_ID || '110146154764-2ln4chaa9qh638qcivb8q52ei3c8g791.apps.googleusercontent.com',
+    clientSecret    : process.env.GOOGLE_CLIENT_SECRET || '6z6C7UC56IRB-rI46lBauRcF',
     callbackURL     : process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback'
 };
 
