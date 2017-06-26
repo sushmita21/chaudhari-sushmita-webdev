@@ -1,5 +1,21 @@
-.navbar-inverse {
-    background-color:  #28332E;
+/*.navbar-inverse {
+    background-color: teal;
+    border-color: transparent;
+    height: 10px;
+
+}*/
+.navbar-inverse
+{
+    border-color: transparent;
+    background: black; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left,rgba(255,0,0,0),black); /*Safari 5.1-6*/
+    background: -o-linear-gradient(right,rgba(255,0,0,0),black); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(right,rgba(255,0,0,0),black); /*Fx 3.6-15*/
+    background: linear-gradient(to left, rgba(255,0,0,0), black); /*Standard*/
+}
+navbar-text
+{
+    color: #0b0b0b;
 }
 
 .navbar-inverse .navbar-brand {
@@ -424,12 +440,12 @@ color:#404040;
     height:80%;
 }
 
-.navbar-default .navbar-text {
+.navbar-default {
     color: #ffffff;
 }
 
 .navbar-text a{
-   color: #ffffff; 
+   color: black;
 }
 
 .navbar-footer a{
@@ -476,3 +492,5 @@ fieldset, label { margin: 0; padding: 0; }
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 
 /* --------------------------------- */
+
+
