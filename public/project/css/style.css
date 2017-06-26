@@ -4,6 +4,17 @@
     height: 10px;
 
 }*/
+#reviewButton
+{
+    color:darkslateblue;
+    background-color: black;
+}
+
+#offerButton
+{
+    color: darkslateblue;
+    background-color: black;
+}
 .navbar-inverse
 {
     border-color: transparent;
